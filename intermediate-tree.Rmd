@@ -1,0 +1,69 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+
+#------http://r-exercises.com/2016/12/29/intermediate-tree-1/------
+
+
+
+
+#read in the adult.csv file with header=FALSE. Store this in df. Use str() command to see the dataframe.
+df=read.csv("C:\\Users\\user\\Documents\\GitHub\\Exercises-1\\adult.csv", header = FALSE)
+str(df)
+
+#You are given the meta_data that goes with the CSV. You can download this here Use that to add the column names for your dataframe. Notice the df is ordered going from V1,V2,V3 _ _ and so on. As a side note, it is always best practice to use that to match and see if all the columns are read in correctly.
+colnames(df)=c("age","workclass","fnlwgt","education","education-num","marital-status","occupation","relationhip","race","sex","capital-gain","capital-loss","hours-per-week","native-country","class")
+df
+
+#Use the table command and print out the distribution of the class feature.
+table(df$class)
+
+#Change the class column to binary.
+df$class=ifelse(df$class==" >50K", 1, 0)
+df
+
+#Use the cor() command to see the corelation of all the numeric and integer columns including the class column. Remember that numbers close to 1 means high corelation and number close to 0 means low. This will give you a rough idea for feature selection
+cor(df[,c(1,3,5,11,12,13,15)])
+
+#Split the dataset into Train and Test sample. You may use sample.split() and use the ratio as 0.7 and set the seed to be 1000. Make sure to install and load caTools package.
+library(caTools)
+set.seed(1000)
+split=sample.split(df$class, SplitRatio = 0.7)
+Train=df[split==TRUE,]
+Test=df[split==FALSE,]
+Train
+Test
+
+#Check the number of rows of Train
+#Check the number of rows of Test
+nrow(Train)
+nrow(Test)
+
+#We are ready to use decision tree in our dataset. Load the package “rpart” and “rpart.plot” If it is not installed, then use the install.packages() commmand.
+library(rpart)
+if(!require(rpart.plot)){
+  install.packages("rpart.plot")
+}
+library(rpart.plot)
+
+#Use rpart to build the decision tree on the Train set. Include all features.Store this model in dec
+dec=rpart(class~.,data=Train)
+dec
+
+#Use the prp() function to plot the decision tree. If you get any error use this code before the prp() command
+par(mar = rep(2, 4))
+prp(dec)
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
