@@ -1,0 +1,77 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+###### ------ http://r-exercises.com/2017/01/05/intermediate-tree-2-2/ ----- #####
+###### ------ https://www.r-bloggers.com/intermediate-tree-2 ----- #####
+#Intermediate Tree 2
+
+
+df=read.csv("C:\\Users\\user\\Documents\\GitHub\\Exercises-1\\adult.csv", header = FALSE)
+library(caTools)
+colnames(df)=c("age","workclass","fnlwgt","education","education-num","marital-status","occupation","relationhip","race","sex","capital-gain","capital-loss","hours-per-week","native-country","class")
+df$class=ifelse(df$class==" >50K", 1,0)
+df$class=as.factor(df$class)
+set.seed(1000)
+
+split=sample.split(df$class, SplitRatio = 0.8)
+
+Train=df[split==TRUE,]
+
+Test= df[split==FALSE,]
+library(rpart)
+library(rpart.plot)
+
+dec=rpart(class~., data = Train)
+par(mar=rep(2,4))
+
+#use the predict() command to make predictions on the Train data. Set the method to “class”. Class returns classifications instead of probability scores. Store this prediction in pred_dec.
+pred_dec=predict(dec, newdata = Test, type = "class" )
+
+#Print out the confusion matrix
+table(Test$class, pred_dec)
+
+#What is the accuracy of the model. Use the confusion matrix.
+(2345+364)/(2345+364+400+74)
+
+#What is the misclassification error rate? Refer to Basic_decision_tree exercise to get the formula.
+mean(Test$class!=pred_dec)
+
+#Lets say we want to find the baseline model to compare our prediction improvement. We create a base model using this code
+length(Test$class)
+base=rep(1,3183)
+#Use the table() command to create a confusion matrix between the base and Test$class
+table(Test$class, base)
+
+#What is the number difference between the confusion matrix accuracy of dec and base?
+0.54
+
+#Remember the predict() command in question 1. We will use the same mode and same command except we will set the method to “regression”. This gives us a probability estimates. Store this in pred_dec_reg
+pred_dec_reg=predict(dec, newdata = Test, type = "prob")
+
+#load the ROCR package.
+#Use the prediction(), performance() and plot() command to print the ROC curve. Use pred_dec_reg variable from Q7. You can also refer to the previous exercise to see the code.
+library(ROCR)
+pred=prediction(pred_dec_reg[,2], Test$class)
+perf=performance(pred, "tpr", "fpr")
+plot(perf)
+
+#plot() the same ROC curve but set colorize=TRUE
+plot(perf, colorize=TRUE)
+
+#Comment on your findings using ROC curve and accuracy. Is it a good model? Did you notice that ROC prediction() command only takes probability predictions as one of its arguments. Why is that so?
+
+#It is a good model. The initial accuracy is 0.85 which is pretty good. The ROC curve is also leaning more towards the true positive side which is also a good sign. ROC prediction() command takes probability score predictions because it is used to give a visual representation of a range of threshold values. We can use ROC also to interpret what threshold value to chose and decide the ratio of true positive to false positives based on the problem at hand. That is for another exercise#
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
