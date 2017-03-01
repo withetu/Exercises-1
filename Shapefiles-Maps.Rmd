@@ -1,0 +1,60 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#==========================================================================
+#http://r-exercises.com/2017/01/03/working-with-shapefiles-in-r-exercises/
+#Working with Shapefiles in R Exercises
+#==========================================================================
+
+#A shapefile is a simple, nontopological format for storing the geometric location and attribute information of geographic features. Geographic features in a shapefile can be represented by points, lines, or polygons (ESRI). The geographic features are associated with an attribute table which is very similar to an R dataframe.
+
+if (!require(rgdal)){install.packages(rgdal, dep=T)}
+library(rgdal)
+
+#Read the London Sports map from the shapefile london_sports.shp
+london <- readOGR(dsn = ".", layer = "london_sport")
+
+#Change the coordinate system of the map to WGS 84
+london <- spTransform(london, CRS("+proj=longlat +datum=WGS84"))
+
+#Find the names of the zones where sports participation rates is more than 25%.
+london[which(london@data$Partic_Per>25),]@data$name
+
+#Plot the london map in Sky Blue, along with a title.
+plot(london, col="skyblue")
+title("Map of London")
+
+#Plot the zones in London with Sports Participation Rates less than 15% in red. Retain the earlier blue color for other zones.
+plot(london[which(london@data$Partic_Per<15),], col="red", add=T)
+
+#Plot the zones in London with Sports Participation Rates more than 25% in green. Retain the earlier color for other zones.
+plot(london[which(london@data$Partic_Per>25),], col="green", add=T)
+
+#Place a black circle marker at the centre of each zone. Retain previous maps.
+midpoints <- coordinates(london)
+points(midpoints, col = "black", pch = 20)
+
+#Put labels for each zone. Place the labels to the right of the black marker.
+text(coordinates(london), as.character(london@data$name), pos = 4, cex = 0.5)
+
+#Add another categorical attribute sports_part which has values "low", "medium" and "high" for sports participation rates less than equal to 15%, between 15 to 25% and greater than 25% respectively.
+london@data$sports_part[which(london@data$Partic_Per<=15)]<-"low"
+london@data$sports_part[which(london@data$Partic_Per>15 & london@data$Partic_Per<=25)]<-"medium"
+london@data$sports_part[which(london@data$Partic_Per>25)]<-"high"
+
+#Save the new map object with modified attribute table as a new shapefile “london_sport2.shp”.
+writeOGR(london, ".", "london_sport2", driver="ESRI Shapefile")
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
