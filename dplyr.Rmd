@@ -1,0 +1,67 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#===============================================================
+#http://r-exercises.com/2017/01/12/lets-get-started-with-dplyr/
+#Let’s get started with dplyr
+#===============================================================
+
+#Install and load the package dplyr package
+library(dplyr)
+df=data.frame(Theoph)
+
+#Use the names() function to get the column names of df.
+names(df)
+
+#Let’s practice using the select() function. This allows you to work with just column names instead of indices.
+#a) Select only the columns starting from Subject to Dose
+#b) Only select the Wt and Dose columns now.
+select(df, Subject:Dose)
+select(df,Subject,Wt)
+
+#Let’s look at the sample with Dose greater than 5 mg/kg. Use the filter command() to return df with Dose>5′
+filter(df, Dose>5)
+
+#Great. Now use filter command to return df with Dose>5 and Time greater than the mean Time.
+filter(df, Dose>5 & Time>mean(Time))
+
+#Now let’s try sorting the data. Use the arrange() function to
+#1) arrange df by weight (descending)
+#2) arrange df by weight (ascending)
+#3) arrange df by weight (ascending) and Time (descending)
+arrange(df, desc(Wt))
+arrange(df, Wt)
+arrange(df, Wt, desc(Time))
+
+#The mutate() command allows you to create a new column using conditions and data derived from other columns. Use mutate() command to create a new column called trend that equals to Time-mean(Time). This will tell you how far each time value is from its mean. Set na.rm=TRUE.
+mutate(df, trend = Time-mean(Time, na.rm = T))
+
+#Given the meta-data
+#76.2 kg Super-middleweight
+#72.57 kg Middleweight
+#69.85 kg Light-middleweight
+#66.68 kg Welterweight
+#Use the mutate function to classify the weight using the information above. For the purpose of this exercise, considering anything above 76.2 kg to be Super-middleweight and anything below 66.8 to be Welterweight. Anything below 76.2 to be middleweight and anything below 72.57 to be light-middleweight. Store the classifications under weight_cat. Hint: Use ifelse function() with mutate() to achieve this. Store this back into df.
+mutate(df, weight_cat = ifelse(Wt < 69.85, "Welterweight", ifelse(Wt < 72.57, "Light-middleweight", ifelse(Wt < 76.2, "middleweight", ifelse(Wt > 76.2, "Super-Middleweight", "Unknown")))))
+
+#Use the groupby() command to group df by weight_cat. This allows us to use aggregated functions similar to group by in SQL. Store this in a df called weight_group
+weight_group=group_by(df,weight_cat)
+
+#Use the summarize() command on the weight_group created in Question 9 to find the mean Time and sum of Dose received by each weight categories.
+summarize(df,Avg_Time=mean(Time),Total_Dose=sum(Dose))
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
