@@ -52,7 +52,7 @@ mutate(df, trend = Time-mean(Time, na.rm = T))
 mutate(df, weight_cat = ifelse(Wt < 69.85, "Welterweight", ifelse(Wt < 72.57, "Light-middleweight", ifelse(Wt < 76.2, "middleweight", ifelse(Wt > 76.2, "Super-Middleweight", "Unknown")))))
 
 #Use the groupby() command to group df by weight_cat. This allows us to use aggregated functions similar to group by in SQL. Store this in a df called weight_group
-weight_group=group_by(df,weight_cat)
+weight_group=group_by(df, weight_cat)
 
 #Use the summarize() command on the weight_group created in Question 9 to find the mean Time and sum of Dose received by each weight categories.
 summarize(df,Avg_Time=mean(Time),Total_Dose=sum(Dose))
