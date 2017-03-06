@@ -1,0 +1,25 @@
+```{r}
+#=======================================================================================
+# http://r-exercises.com/2017/01/22/bioinformatics-lessons-in-r-1-biostrings-exercises/
+# Bioinformatics Tutorial with Exercises in R (part 1)
+#=======================================================================================
+
+
+source("https://bioconductor.org/biocLite.R")
+biocLite("Biostrings")
+
+#Using the following command, create a list of DNA exactly the same as the one given below, then list the outcome by writing the vector myDNA.
+myDNA <- c("ATGTTGCATTCATTAATTAAGAACGACCCAATACA")
+myDNA
+length(myDNA)
+myDNASeq <- DNAString("CTGATTT-GATGGTC-NAT")
+
+#=====================****INCOMPLETED****=====================
+
+
+
+
+
+```
+
+
