@@ -1,0 +1,84 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#=======================================================================
+#https://www.r-bloggers.com/descriptive-analysis-of-mlst-data-for-mrsa/
+#Descriptive Analysis of MLST Data for MRSA
+#=======================================================================
+
+
+profile <- read.csv("portable.csv", header = T, na.strings = c("",NA))
+#The second argument tells the function that the first row in the file contains the headers or column names.
+#The final argument I used specifies to convert any blank cells to NA type so that R can just treat these as missing data.
+
+dim(profile) #dimensions of the dataset
+names(profile) # names of the columns in dataset
+str(profile) #structure of the data frame
+
+# Change country to character from factor type
+profile$country <- as.character(profile$country)
+
+#lack of data input standardization
+summary(profile$sex)
+summary(profile$methicillin)
+#Since we want to simplify this, we can use the levels() function to set and rename the levels in this column. First, we’re gonna merge the lower and uppercase letters together (r will be R and s will be S)
+levels(profile$methicillin) <- c("I","MIC4","MIC64","R","R","S","S","Unknown","Unspecified")
+levels(profile$methicillin) <- c("R","R","R","R","S","Unknown","Unspecified")
+factor(profile$methicillin)
+
+#Before we move on, another good practice is to be aware (and quantify) missing values in each of the columns. Lets say we want to know how many missing sequence types (STs) are there? We can use the is.na() and which() together to figure out which rows are missing values under the st column.
+which(is.na(profile$st))
+#Using this, we now know that there are four rows missing STs. Row numbers 1596, 1897, 4602 and 4605.
+
+#If we wanted to subset the data for those missing STs, we can just use square brackets “[]” to accomplish this.
+profile[which(is.na(profile$st)),]
+
+
+
+#======Now that we’re done with the appropriate cleaning of the data, let’s ask some (random) questions======#
+
+#1. Which countries reported sequence type 239 (ST-239)?
+
+id.239 <- which(profile$st == 239) #index of rows with ST-239
+st.239 <- profile[id.239,] #new dataframe of only ST-239
+sort(unique(st.239$country)) # alphabetical list of countries with ST-239
+
+#2. Which countries reported ST8 and spa type t008?
+#We use the similar code as above except we add another condition to the logic statement to specify the spa type.
+
+id.ST8.t008 <- which(profile$st == 8 & profile$spa_type == "t008")
+ST8.t008 <- profile[id.ST8.t008,]
+sort(unique(ST8.t008$country))
+
+#3.  What is the proportion of methicillin-susceptible vs. -resistant S. aureus reports are there in North America?
+
+NorthA.MRSA <- profile[profile$country=="USA" | profile$country=="Canada",] #selection of North American countries
+#Then running the following line, we get the counts of methicillin-resistant and methicillin-susceptible in North America.
+table(NorthA.MRSA$methicillin,useNA="always")
+
+#4. How many different STs are there in China, S Korea, Taiwan and Japan?
+
+
+
+
+
+
+
+
+
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
