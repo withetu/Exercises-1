@@ -12,7 +12,7 @@ Try executing this chunk by clicking the *Run* button within the chunk or by pla
 #https://www.r-bloggers.com/descriptive-analysis-of-mlst-data-for-mrsa/
 #Descriptive Analysis of MLST Data for MRSA
 #=======================================================================
-
+library(ggplot2)
 
 profile <- read.csv("portable.csv", header = T, na.strings = c("",NA))
 #The second argument tells the function that the first row in the file contains the headers or column names.
@@ -39,7 +39,7 @@ which(is.na(profile$st))
 
 #If we wanted to subset the data for those missing STs, we can just use square brackets “[]” to accomplish this.
 profile[which(is.na(profile$st)),]
-
+  
 
 
 #======Now that we’re done with the appropriate cleaning of the data, let’s ask some (random) questions======#
@@ -64,6 +64,65 @@ NorthA.MRSA <- profile[profile$country=="USA" | profile$country=="Canada",] #sel
 table(NorthA.MRSA$methicillin,useNA="always")
 
 #4. How many different STs are there in China, S Korea, Taiwan and Japan?
+
+#First we subset the data so that it only includes the countries of interest…
+F.east <- profile[profile$country=="China" | profile$country=="South Korea" | profile$country=="Japan" | profile$country=="Taiwan",]
+#The following lines of code will answer some other questions related to this…
+factor(F.east$st) #find the number of STs in all these countries
+sum(is.na(F.east$st)) #number of missing values
+table(F.east$country) #counts of STs by country
+#If we want to only look those without missing values…
+FE.final <- F.east[complete.cases(F.east$country),] #removal of all rows that are missing an entry for country
+#To go further we can look at each specific country, lets ask what are the top 5 most reported STs in China?
+FE.China <- FE.final[FE.final$country=="China",] #subset for China    
+sort(table(FE.China$st),decreasing=T)[1:5] #top 5 most reported
+sort(table(FE.China$st),decreasing=T)[1:10] #top 10 most frequent
+
+#5. What are the 10 most frequently STs reported in North America in this database?
+
+c.NorthA.MRSA <- as.data.frame(table(NorthA.MRSA$st))
+names(c.NorthA.MRSA) <- c("ST", "count") #data frame containing count frequencies of the STs
+c.NorthA.MRSA <- c.NorthA.MRSA[order(-c.NorthA.MRSA$count),] #order the STs by count frequencies
+c.NorthA.MRSA[1:10,] # top ten
+
+blank_t <- theme(
+  axis.title.x = element_blank(),
+  axis.title.y = element_blank(),
+  panel.border = element_blank(),
+  panel.grid = element_blank(),
+  axis.ticks = element_blank(),
+  plot.title = element_text(size = 20, face="bold", hjust=0.6),
+  plot.subtitle = element_text(size = 15 ,face=c("bold", "italic"), hjust = 0.6),
+  axis.text.x = element_text(),
+  legend.title = element_text(size = 14 ,face = "bold", vjust = 0.5),
+  panel.margin = unit(2, "cm")
+)
+
+pie1<-ggplot(c.NorthA.MRSA[1:10,], aes(x="",y=count,fill=ST,order=ST)) +
+geom_bar(width=1, stat="identity") +
+ggtitle(element_text(size=50))+
+labs(title = "STs in North America", subtitle = "Canada and United States",y=NULL) +
+coord_polar(theta="y")+
+geom_text(aes(label = scales::percent(count/sum(c.NorthA.MRSA[1:10,2]))),size=4, position = position_stack(vjust = 0.6)) +
+blank_t +
+scale_fill_manual(guide_legend(title="STs"),
+values=c("#e6b4c9",
+"#bce5c2", # color palette hexcodes
+"#c7b5de",
+"#e3e4c5",
+"#a1bbdd",
+"#e5b6a5",
+"#99d5e5",
+"#bdbda0",
+"#dcd1e1",
+"#99c6b8"))
+
+print(pie1)
+ggsave(plot = pie1, filename = "North_America_STs_MLSTdatabase.png", width = 5.75, height = 7, dpi=120)
+
+
+
+
 
 
 
