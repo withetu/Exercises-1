@@ -142,7 +142,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("Multiple-Regression-(Part 1).Rmd");
+  window.initializeSourceEmbed("Multiple-Regression-(Part 2).Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -176,81 +176,9 @@ $(document).ready(function () {
 <p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Ctrl+Shift+Enter</em>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XG4jaHR0cDovL3ItZXhlcmNpc2VzLmNvbS8yMDE3LzAxLzE1L211bHRpcGxlLXJlZ3Jlc3Npb24tcGFydC0xL1xuI011bHRpcGxlIFJlZ3Jlc3Npb24gKFBhcnQgMSlcbiM9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuI2EuIExvYWQgdGhlIHN0YXRlIGRhdGFzZXRzLlxuZGF0YShzdGF0ZSlcbiNiLiBDb252ZXJ0IHRoZSBzdGF0ZS54NzcgZGF0YXNldCB0byBhIGRhdGFmcmFtZS5cbnN0YXRlNzcgPSBhcy5kYXRhLmZyYW1lKHN0YXRlLng3NylcbiNjLiBSZW5hbWUgdGhlIExpZmUgRXhwIHZhcmlhYmxlIHRvIExpZmUuRXhwLCBhbmQgSFMgR3JhZCB0byBIUy5HcmFkLiAoVGhpcyBhdm9pZHMgcHJvYmxlbXMgd2l0aCByZWZlcnJpbmcgdG8gdGhlc2UgdmFyaWFibGVzIHdoZW4gc3BlY2lmeWluZyBhIG1vZGVsLilcbm5hbWVzKHN0YXRlNzcpWzRdIDwtIFwiTGlmZS5FeHBcIlxubmFtZXMoc3RhdGU3NylbNl0gPC0gXCJIUy5HcmFkXCJcbiNTdXBwb3NlIHdlIHdhbnRlZCB0byBlbnRlciBhbGwgdGhlIHZhcmlhYmxlcyBpbiBhIGZpcnN0LW9yZGVyIGxpbmVhciByZWdyZXNzaW9uIG1vZGVsIHdpdGggTGlmZSBFeHBlY3RhbmN5IGFzIHRoZSBkZXBlbmRlbnQgdmFyaWFibGUuIEZpdCB0aGlzIG1vZGVsLlxubW9kZWwgPC0gbG0oTGlmZS5FeHAgfiAuLCBkYXRhID0gc3RhdGU3NykgI3RoZSAnLicgbWVhbnMgJ2FsbCdcbnN1bW1hcnkobW9kZWwpXG5gYGAifQ== -->
-<pre class="r"><code>#==============================================================
-#http://r-exercises.com/2017/01/15/multiple-regression-part-1/
-#Multiple Regression (Part 1)
-#==============================================================
-#a. Load the state datasets.
-data(state)
-#b. Convert the state.x77 dataset to a dataframe.
-state77 = as.data.frame(state.x77)
-#c. Rename the Life Exp variable to Life.Exp, and HS Grad to HS.Grad. (This avoids problems with referring to these variables when specifying a model.)
-names(state77)[4] &lt;- &quot;Life.Exp&quot;
-names(state77)[6] &lt;- &quot;HS.Grad&quot;
-#Suppose we wanted to enter all the variables in a first-order linear regression model with Life Expectancy as the dependent variable. Fit this model.
-model &lt;- lm(Life.Exp ~ ., data = state77) #the '.' means 'all'
-summary(model)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IExpZmUuRXhwIH4gLiwgZGF0YSA9IHN0YXRlNzcpXG5cblJlc2lkdWFsczpcbiAgICAgTWluICAgICAgIDFRICAgTWVkaWFuICAgICAgIDNRICAgICAgTWF4IFxuLTEuNDg4OTUgLTAuNTEyMzIgLTAuMDI3NDcgIDAuNTcwMDIgIDEuNDk0NDcgXG5cbkNvZWZmaWNpZW50czpcbiAgICAgICAgICAgICAgRXN0aW1hdGUgU3RkLiBFcnJvciB0IHZhbHVlIFByKD58dHwpICAgIFxuKEludGVyY2VwdCkgIDcuMDk0ZSswMSAgMS43NDhlKzAwICA0MC41ODYgIDwgMmUtMTYgKioqXG5Qb3B1bGF0aW9uICAgNS4xODBlLTA1ICAyLjkxOWUtMDUgICAxLjc3NSAgIDAuMDgzMiAuICBcbkluY29tZSAgICAgIC0yLjE4MGUtMDUgIDIuNDQ0ZS0wNCAgLTAuMDg5ICAgMC45MjkzICAgIFxuSWxsaXRlcmFjeSAgIDMuMzgyZS0wMiAgMy42NjNlLTAxICAgMC4wOTIgICAwLjkyNjkgICAgXG5NdXJkZXIgICAgICAtMy4wMTFlLTAxICA0LjY2MmUtMDIgIC02LjQ1OSA4LjY4ZS0wOCAqKipcbkhTLkdyYWQgICAgICA0Ljg5M2UtMDIgIDIuMzMyZS0wMiAgIDIuMDk4ICAgMC4wNDIwICogIFxuRnJvc3QgICAgICAgLTUuNzM1ZS0wMyAgMy4xNDNlLTAzICAtMS44MjUgICAwLjA3NTIgLiAgXG5BcmVhICAgICAgICAtNy4zODNlLTA4ICAxLjY2OGUtMDYgIC0wLjA0NCAgIDAuOTY0OSAgICBcbi0tLVxuU2lnbmlmLiBjb2RlczogIDAg4oCYKioq4oCZIDAuMDAxIOKAmCoq4oCZIDAuMDEg4oCYKuKAmSAwLjA1IOKAmC7igJkgMC4xIOKAmCDigJkgMVxuXG5SZXNpZHVhbCBzdGFuZGFyZCBlcnJvcjogMC43NDQ4IG9uIDQyIGRlZ3JlZXMgb2YgZnJlZWRvbVxuTXVsdGlwbGUgUi1zcXVhcmVkOiAgMC43MzYyLFx0QWRqdXN0ZWQgUi1zcXVhcmVkOiAgMC42OTIyIFxuRi1zdGF0aXN0aWM6IDE2Ljc0IG9uIDcgYW5kIDQyIERGLCAgcC12YWx1ZTogMi41MzRlLTEwXG4ifQ== -->
-<pre><code>
-Call:
-lm(formula = Life.Exp ~ ., data = state77)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--1.48895 -0.51232 -0.02747  0.57002  1.49447 
-
-Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  7.094e+01  1.748e+00  40.586  &lt; 2e-16 ***
-Population   5.180e-05  2.919e-05   1.775   0.0832 .  
-Income      -2.180e-05  2.444e-04  -0.089   0.9293    
-Illiteracy   3.382e-02  3.663e-01   0.092   0.9269    
-Murder      -3.011e-01  4.662e-02  -6.459 8.68e-08 ***
-HS.Grad      4.893e-02  2.332e-02   2.098   0.0420 *  
-Frost       -5.735e-03  3.143e-03  -1.825   0.0752 .  
-Area        -7.383e-08  1.668e-06  -0.044   0.9649    
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.7448 on 42 degrees of freedom
-Multiple R-squared:  0.7362,    Adjusted R-squared:  0.6922 
-F-statistic: 16.74 on 7 and 42 DF,  p-value: 2.534e-10</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1N1cHBvc2Ugd2Ugd2FudGVkIHRvIHJlbW92ZSB0aGUgSW5jb21lLCBJbGxpdGVyYWN5LCBhbmQgQXJlYSB2YXJpYWJsZXMgZnJvbSB0aGUgbW9kZWwgaW4gRXhlcmNpc2UgMi4gVXNlIHRoZSB1cGRhdGUgZnVuY3Rpb24gdG8gZml0IHRoaXMgbW9kZWwuXG5tb2RlbDIgPC0gdXBkYXRlKG1vZGVsLCAuIH4gLiAtSW5jb21lIC1JbGxpdGVyYWN5IC1BcmVhKSAjdGhlICcuJyBtZWFucyAnc2FtZSBhcyBpbiBvcmlnaW5hbCBtb2RlbCdcbnN1bW1hcnkobW9kZWwyKVxuYGBgIn0= -->
-<pre class="r"><code>#Suppose we wanted to remove the Income, Illiteracy, and Area variables from the model in Exercise 2. Use the update function to fit this model.
-model2 &lt;- update(model, . ~ . -Income -Illiteracy -Area) #the '.' means 'same as in original model'
-summary(model2)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IExpZmUuRXhwIH4gUG9wdWxhdGlvbiArIE11cmRlciArIEhTLkdyYWQgKyBGcm9zdCwgXG4gICAgZGF0YSA9IHN0YXRlNzcpXG5cblJlc2lkdWFsczpcbiAgICAgTWluICAgICAgIDFRICAgTWVkaWFuICAgICAgIDNRICAgICAgTWF4IFxuLTEuNDcwOTUgLTAuNTM0NjQgLTAuMDM3MDEgIDAuNTc2MjEgIDEuNTA2ODMgXG5cbkNvZWZmaWNpZW50czpcbiAgICAgICAgICAgICAgRXN0aW1hdGUgU3RkLiBFcnJvciB0IHZhbHVlIFByKD58dHwpICAgIFxuKEludGVyY2VwdCkgIDcuMTAzZSswMSAgOS41MjllLTAxICA3NC41NDIgIDwgMmUtMTYgKioqXG5Qb3B1bGF0aW9uICAgNS4wMTRlLTA1ICAyLjUxMmUtMDUgICAxLjk5NiAgMC4wNTIwMSAuICBcbk11cmRlciAgICAgIC0zLjAwMWUtMDEgIDMuNjYxZS0wMiAgLTguMTk5IDEuNzdlLTEwICoqKlxuSFMuR3JhZCAgICAgIDQuNjU4ZS0wMiAgMS40ODNlLTAyICAgMy4xNDIgIDAuMDAyOTcgKiogXG5Gcm9zdCAgICAgICAtNS45NDNlLTAzICAyLjQyMWUtMDMgIC0yLjQ1NSAgMC4wMTgwMiAqICBcbi0tLVxuU2lnbmlmLiBjb2RlczogIDAg4oCYKioq4oCZIDAuMDAxIOKAmCoq4oCZIDAuMDEg4oCYKuKAmSAwLjA1IOKAmC7igJkgMC4xIOKAmCDigJkgMVxuXG5SZXNpZHVhbCBzdGFuZGFyZCBlcnJvcjogMC43MTk3IG9uIDQ1IGRlZ3JlZXMgb2YgZnJlZWRvbVxuTXVsdGlwbGUgUi1zcXVhcmVkOiAgMC43MzYsXHRBZGp1c3RlZCBSLXNxdWFyZWQ6ICAwLjcxMjYgXG5GLXN0YXRpc3RpYzogMzEuMzcgb24gNCBhbmQgNDUgREYsICBwLXZhbHVlOiAxLjY5NmUtMTJcbiJ9 -->
-<pre><code>
-Call:
-lm(formula = Life.Exp ~ Population + Murder + HS.Grad + Frost, 
-    data = state77)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--1.47095 -0.53464 -0.03701  0.57621  1.50683 
-
-Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  7.103e+01  9.529e-01  74.542  &lt; 2e-16 ***
-Population   5.014e-05  2.512e-05   1.996  0.05201 .  
-Murder      -3.001e-01  3.661e-02  -8.199 1.77e-10 ***
-HS.Grad      4.658e-02  1.483e-02   3.142  0.00297 ** 
-Frost       -5.943e-03  2.421e-03  -2.455  0.01802 *  
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.7197 on 45 degrees of freedom
-Multiple R-squared:  0.736, Adjusted R-squared:  0.7126 
-F-statistic: 31.37 on 4 and 45 DF,  p-value: 1.696e-12</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0xldOKAmXMgYXNzdW1lIHRoYXQgd2UgaGF2ZSBzZXR0bGVkIG9uIGEgbW9kZWwgdGhhdCBoYXMgSFMuR3JhZCBhbmQgTXVyZGVyIGFzIHByZWRpY3RvcnMuIEZpdCB0aGlzIG1vZGVsLlxubW9kZWwzIDwtIGxtKExpZmUuRXhwIH4gSFMuR3JhZCtNdXJkZXIsIGRhdGEgPSBzdGF0ZTc3KVxuc3VtbWFyeShtb2RlbDMpXG5gYGAifQ== -->
-<pre class="r"><code>#Let’s assume that we have settled on a model that has HS.Grad and Murder as predictors. Fit this model.
-model3 &lt;- lm(Life.Exp ~ HS.Grad+Murder, data = state77)
-summary(model3)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3VtbWFyeShtb2RlbClcblxuYGBgIn0= -->
+<pre class="r"><code>summary(model)
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IExpZmUuRXhwIH4gSFMuR3JhZCArIE11cmRlciwgZGF0YSA9IHN0YXRlNzcpXG5cblJlc2lkdWFsczpcbiAgICAgTWluICAgICAgIDFRICAgTWVkaWFuICAgICAgIDNRICAgICAgTWF4IFxuLTEuNjY3NTggLTAuNDE4MDEgIDAuMDU2MDIgIDAuNTU5MTMgIDIuMDU2MjUgXG5cbkNvZWZmaWNpZW50czpcbiAgICAgICAgICAgIEVzdGltYXRlIFN0ZC4gRXJyb3IgdCB2YWx1ZSBQcig+fHR8KSAgICBcbihJbnRlcmNlcHQpIDcwLjI5NzA4ICAgIDEuMDE1NjcgIDY5LjIxMyAgPCAyZS0xNiAqKipcbkhTLkdyYWQgICAgICAwLjA0Mzg5ICAgIDAuMDE2MTMgICAyLjcyMSAgMC4wMDkwOSAqKiBcbk11cmRlciAgICAgIC0wLjIzNzA5ICAgIDAuMDM1MjkgIC02LjcxOSAyLjE4ZS0wOCAqKipcbi0tLVxuU2lnbmlmLiBjb2RlczogIDAg4oCYKioq4oCZIDAuMDAxIOKAmCoq4oCZIDAuMDEg4oCYKuKAmSAwLjA1IOKAmC7igJkgMC4xIOKAmCDigJkgMVxuXG5SZXNpZHVhbCBzdGFuZGFyZCBlcnJvcjogMC43OTU5IG9uIDQ3IGRlZ3JlZXMgb2YgZnJlZWRvbVxuTXVsdGlwbGUgUi1zcXVhcmVkOiAgMC42NjI4LFx0QWRqdXN0ZWQgUi1zcXVhcmVkOiAgMC42NDg1IFxuRi1zdGF0aXN0aWM6ICA0Ni4yIG9uIDIgYW5kIDQ3IERGLCAgcC12YWx1ZTogOC4wMTZlLTEyXG4ifQ== -->
 <pre><code>
@@ -273,143 +201,13 @@ Residual standard error: 0.7959 on 47 degrees of freedom
 Multiple R-squared:  0.6628,    Adjusted R-squared:  0.6485 
 F-statistic:  46.2 on 2 and 47 DF,  p-value: 8.016e-12</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0FkZCBhbiBpbnRlcmFjdGlvbiB0ZXJtIHRvIHRoZSBtb2RlbCBpbiBFeGVyY2lzZSA0ICgzIGRpZmZlcmVudCB3YXlzKS5cbm1vZGVsNCA8LSBsbShMaWZlLkV4cCB+IEhTLkdyYWQrTXVyZGVyK0hTLkdyYWQ6TXVyZGVyLCBkYXRhID0gc3RhdGU3NylcbnN1bW1hcnkobW9kZWw0KVxuYGBgIn0= -->
-<pre class="r"><code>#Add an interaction term to the model in Exercise 4 (3 different ways).
-model4 &lt;- lm(Life.Exp ~ HS.Grad+Murder+HS.Grad:Murder, data = state77)
-summary(model4)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IExpZmUuRXhwIH4gSFMuR3JhZCArIE11cmRlciArIEhTLkdyYWQ6TXVyZGVyLCBkYXRhID0gc3RhdGU3NylcblxuUmVzaWR1YWxzOlxuICAgICBNaW4gICAgICAgMVEgICBNZWRpYW4gICAgICAgM1EgICAgICBNYXggXG4tMS42NjA3NyAtMC40Mzg0NiAgMC4wNjM2MiAgMC41MjY2NSAgMS45OTQxNiBcblxuQ29lZmZpY2llbnRzOlxuICAgICAgICAgICAgICAgIEVzdGltYXRlIFN0ZC4gRXJyb3IgdCB2YWx1ZSBQcig+fHR8KSAgICBcbihJbnRlcmNlcHQpICAgIDY3LjgzMTIwMyAgIDIuNTMwMTMxICAyNi44MDkgICA8MmUtMTYgKioqXG5IUy5HcmFkICAgICAgICAgMC4wODkzNjggICAwLjA0NTY4NCAgIDEuOTU2ICAgMC4wNTY1IC4gIFxuTXVyZGVyICAgICAgICAgIDAuMDIzNTEwICAgMC4yNDc0ODcgICAwLjA5NSAgIDAuOTI0NyAgICBcbkhTLkdyYWQ6TXVyZGVyIC0wLjAwNDk1OSAgIDAuMDA0NjYxICAtMS4wNjQgICAwLjI5MzAgICAgXG4tLS1cblNpZ25pZi4gY29kZXM6ICAwIOKAmCoqKuKAmSAwLjAwMSDigJgqKuKAmSAwLjAxIOKAmCrigJkgMC4wNSDigJgu4oCZIDAuMSDigJgg4oCZIDFcblxuUmVzaWR1YWwgc3RhbmRhcmQgZXJyb3I6IDAuNzk0OCBvbiA0NiBkZWdyZWVzIG9mIGZyZWVkb21cbk11bHRpcGxlIFItc3F1YXJlZDogIDAuNjcwOSxcdEFkanVzdGVkIFItc3F1YXJlZDogIDAuNjQ5NSBcbkYtc3RhdGlzdGljOiAzMS4yNiBvbiAzIGFuZCA0NiBERiwgIHAtdmFsdWU6IDMuNTkyZS0xMVxuIn0= -->
-<pre><code>
-Call:
-lm(formula = Life.Exp ~ HS.Grad + Murder + HS.Grad:Murder, data = state77)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--1.66077 -0.43846  0.06362  0.52665  1.99416 
-
-Coefficients:
-                Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)    67.831203   2.530131  26.809   &lt;2e-16 ***
-HS.Grad         0.089368   0.045684   1.956   0.0565 .  
-Murder          0.023510   0.247487   0.095   0.9247    
-HS.Grad:Murder -0.004959   0.004661  -1.064   0.2930    
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.7948 on 46 degrees of freedom
-Multiple R-squared:  0.6709,    Adjusted R-squared:  0.6495 
-F-statistic: 31.26 on 3 and 46 DF,  p-value: 3.592e-11</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9kZWw0IDwtIGxtKExpZmUuRXhwIH4gSFMuR3JhZCpNdXJkZXIsIGRhdGEgPSBzdGF0ZTc3KVxuc3VtbWFyeShtb2RlbDQpXG5gYGAifQ== -->
-<pre class="r"><code>model4 &lt;- lm(Life.Exp ~ HS.Grad*Murder, data = state77)
-summary(model4)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IExpZmUuRXhwIH4gSFMuR3JhZCAqIE11cmRlciwgZGF0YSA9IHN0YXRlNzcpXG5cblJlc2lkdWFsczpcbiAgICAgTWluICAgICAgIDFRICAgTWVkaWFuICAgICAgIDNRICAgICAgTWF4IFxuLTEuNjYwNzcgLTAuNDM4NDYgIDAuMDYzNjIgIDAuNTI2NjUgIDEuOTk0MTYgXG5cbkNvZWZmaWNpZW50czpcbiAgICAgICAgICAgICAgICBFc3RpbWF0ZSBTdGQuIEVycm9yIHQgdmFsdWUgUHIoPnx0fCkgICAgXG4oSW50ZXJjZXB0KSAgICA2Ny44MzEyMDMgICAyLjUzMDEzMSAgMjYuODA5ICAgPDJlLTE2ICoqKlxuSFMuR3JhZCAgICAgICAgIDAuMDg5MzY4ICAgMC4wNDU2ODQgICAxLjk1NiAgIDAuMDU2NSAuICBcbk11cmRlciAgICAgICAgICAwLjAyMzUxMCAgIDAuMjQ3NDg3ICAgMC4wOTUgICAwLjkyNDcgICAgXG5IUy5HcmFkOk11cmRlciAtMC4wMDQ5NTkgICAwLjAwNDY2MSAgLTEuMDY0ICAgMC4yOTMwICAgIFxuLS0tXG5TaWduaWYuIGNvZGVzOiAgMCDigJgqKirigJkgMC4wMDEg4oCYKirigJkgMC4wMSDigJgq4oCZIDAuMDUg4oCYLuKAmSAwLjEg4oCYIOKAmSAxXG5cblJlc2lkdWFsIHN0YW5kYXJkIGVycm9yOiAwLjc5NDggb24gNDYgZGVncmVlcyBvZiBmcmVlZG9tXG5NdWx0aXBsZSBSLXNxdWFyZWQ6ICAwLjY3MDksXHRBZGp1c3RlZCBSLXNxdWFyZWQ6ICAwLjY0OTUgXG5GLXN0YXRpc3RpYzogMzEuMjYgb24gMyBhbmQgNDYgREYsICBwLXZhbHVlOiAzLjU5MmUtMTFcbiJ9 -->
-<pre><code>
-Call:
-lm(formula = Life.Exp ~ HS.Grad * Murder, data = state77)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--1.66077 -0.43846  0.06362  0.52665  1.99416 
-
-Coefficients:
-                Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)    67.831203   2.530131  26.809   &lt;2e-16 ***
-HS.Grad         0.089368   0.045684   1.956   0.0565 .  
-Murder          0.023510   0.247487   0.095   0.9247    
-HS.Grad:Murder -0.004959   0.004661  -1.064   0.2930    
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.7948 on 46 degrees of freedom
-Multiple R-squared:  0.6709,    Adjusted R-squared:  0.6495 
-F-statistic: 31.26 on 3 and 46 DF,  p-value: 3.592e-11</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubW9kZWw0IDwtIGxtKExpZmUuRXhwIH4gKEhTLkdyYWQrTXVyZGVyKV4yLCBkYXRhID0gc3RhdGU3NylcbnN1bW1hcnkobW9kZWw0KVxuYGBgIn0= -->
-<pre class="r"><code>model4 &lt;- lm(Life.Exp ~ (HS.Grad+Murder)^2, data = state77)
-summary(model4)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG5DYWxsOlxubG0oZm9ybXVsYSA9IExpZmUuRXhwIH4gKEhTLkdyYWQgKyBNdXJkZXIpXjIsIGRhdGEgPSBzdGF0ZTc3KVxuXG5SZXNpZHVhbHM6XG4gICAgIE1pbiAgICAgICAxUSAgIE1lZGlhbiAgICAgICAzUSAgICAgIE1heCBcbi0xLjY2MDc3IC0wLjQzODQ2ICAwLjA2MzYyICAwLjUyNjY1ICAxLjk5NDE2IFxuXG5Db2VmZmljaWVudHM6XG4gICAgICAgICAgICAgICAgRXN0aW1hdGUgU3RkLiBFcnJvciB0IHZhbHVlIFByKD58dHwpICAgIFxuKEludGVyY2VwdCkgICAgNjcuODMxMjAzICAgMi41MzAxMzEgIDI2LjgwOSAgIDwyZS0xNiAqKipcbkhTLkdyYWQgICAgICAgICAwLjA4OTM2OCAgIDAuMDQ1Njg0ICAgMS45NTYgICAwLjA1NjUgLiAgXG5NdXJkZXIgICAgICAgICAgMC4wMjM1MTAgICAwLjI0NzQ4NyAgIDAuMDk1ICAgMC45MjQ3ICAgIFxuSFMuR3JhZDpNdXJkZXIgLTAuMDA0OTU5ICAgMC4wMDQ2NjEgIC0xLjA2NCAgIDAuMjkzMCAgICBcbi0tLVxuU2lnbmlmLiBjb2RlczogIDAg4oCYKioq4oCZIDAuMDAxIOKAmCoq4oCZIDAuMDEg4oCYKuKAmSAwLjA1IOKAmC7igJkgMC4xIOKAmCDigJkgMVxuXG5SZXNpZHVhbCBzdGFuZGFyZCBlcnJvcjogMC43OTQ4IG9uIDQ2IGRlZ3JlZXMgb2YgZnJlZWRvbVxuTXVsdGlwbGUgUi1zcXVhcmVkOiAgMC42NzA5LFx0QWRqdXN0ZWQgUi1zcXVhcmVkOiAgMC42NDk1IFxuRi1zdGF0aXN0aWM6IDMxLjI2IG9uIDMgYW5kIDQ2IERGLCAgcC12YWx1ZTogMy41OTJlLTExXG4ifQ== -->
-<pre><code>
-Call:
-lm(formula = Life.Exp ~ (HS.Grad + Murder)^2, data = state77)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--1.66077 -0.43846  0.06362  0.52665  1.99416 
-
-Coefficients:
-                Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)    67.831203   2.530131  26.809   &lt;2e-16 ***
-HS.Grad         0.089368   0.045684   1.956   0.0565 .  
-Murder          0.023510   0.247487   0.095   0.9247    
-HS.Grad:Murder -0.004959   0.004661  -1.064   0.2930    
----
-Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-Residual standard error: 0.7948 on 46 degrees of freedom
-Multiple R-squared:  0.6709,    Adjusted R-squared:  0.6495 
-F-statistic: 31.26 on 3 and 46 DF,  p-value: 3.592e-11</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0ZvciB0aGlzIGFuZCB0aGUgcmVtYWluaW5nIGV4ZXJjaXNlcyBpbiB0aGlzIHNldCB3ZSB3aWxsIHVzZSB0aGUgbW9kZWwgZnJvbSBFeGVyY2lzZSA0LlxuI09idGFpbiA5NSUgY29uZmlkZW5jZSBpbnRlcnZhbHMgZm9yIHRoZSBjb2VmZmljaWVudHMgb2YgdGhlIHR3byBwcmVkaWN0b3IgdmFyaWFibGVzLlxuY29uZmludChtb2RlbDMsIGxldmVsID0gMC45NSlcbmBgYCJ9 -->
-<pre class="r"><code>#For this and the remaining exercises in this set we will use the model from Exercise 4.
-#Obtain 95% confidence intervals for the coefficients of the two predictor variables.
-confint(model3, level = 0.95)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgICAgICAgICAgICAgMi41ICUgICAgICA5Ny41ICVcbihJbnRlcmNlcHQpIDY4LjI1MzgyMzc5IDcyLjM0MDM0NDI0XG5IUy5HcmFkICAgICAgMC4wMTE0NDQxOSAgMC4wNzYzMzA0MVxuTXVyZGVyICAgICAgLTAuMzA4MDc0ODMgLTAuMTY2MTA1MzZcbiJ9 -->
-<pre><code>                  2.5 %      97.5 %
-(Intercept) 68.25382379 72.34034424
-HS.Grad      0.01144419  0.07633041
-Murder      -0.30807483 -0.16610536</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1ByZWRpY3QgdGhlIExpZmUgRXhwZWN0YW5jeSBmb3IgYSBzdGF0ZSB3aGVyZSA1NSUgb2YgdGhlIHBvcHVsYXRpb24gYXJlIEhpZ2ggU2Nob29sIGdyYWR1YXRlcywgYW5kIHRoZSBtdXJkZXIgcmF0ZSBpcyA4IHBlciAxMDAsMDAwLlxucHJlZGljdChtb2RlbDMsIGRhdGEuZnJhbWUoSFMuR3JhZD01NSwgTXVyZGVyPTgpKVxuYGBgIn0= -->
-<pre class="r"><code>#Predict the Life Expectancy for a state where 55% of the population are High School graduates, and the murder rate is 8 per 100,000.
-predict(model3, data.frame(HS.Grad=55, Murder=8))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgIDEgXG43MC44MTQxNiBcbiJ9 -->
-<pre><code>       1 
-70.81416 </code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI09idGFpbiBhIDk4JSBjb25maWRlbmNlIGludGVydmFsIGZvciB0aGUgbWVhbiBMaWZlIEV4cGVjdGFuY3kgaW4gYSBzdGF0ZSB3aGVyZSA1NSUgb2YgdGhlIHBvcHVsYXRpb24gYXJlIEhpZ2ggU2Nob29sIGdyYWR1YXRlcywgYW5kIHRoZSBtdXJkZXIgcmF0ZSBpcyA4IHBlciAxMDAsMDAwLlxucHJlZGljdChtb2RlbDMsIGRhdGEuZnJhbWUoSFMuR3JhZD01NSwgTXVyZGVyPTgpLCBpbnRlcnZhbCA9IFwiY29uZmlkZW5jZVwiLCBsZXZlbCA9IDAuOTgpXG5gYGAifQ== -->
-<pre class="r"><code>#Obtain a 98% confidence interval for the mean Life Expectancy in a state where 55% of the population are High School graduates, and the murder rate is 8 per 100,000.
-predict(model3, data.frame(HS.Grad=55, Murder=8), interval = &quot;confidence&quot;, level = 0.98)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgIGZpdCAgICAgIGx3ciAgICAgdXByXG4xIDcwLjgxNDE2IDcwLjUyMTgzIDcxLjEwNjVcbiJ9 -->
-<pre><code>       fit      lwr     upr
-1 70.81416 70.52183 71.1065</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI09idGFpbiBhIDk4JSBjb25maWRlbmNlIGludGVydmFsIGZvciB0aGUgTGlmZSBFeHBlY3RhbmN5IG9mIGEgcGVyc29uIGxpdmluZyBpbiBhIHN0YXRlIHdoZXJlIDU1JSBvZiB0aGUgcG9wdWxhdGlvbiBhcmUgSGlnaCBTY2hvb2wgZ3JhZHVhdGVzLCBhbmQgdGhlIG11cmRlciByYXRlIGlzIDggcGVyIDEwMCwwMDAuXG5wcmVkaWN0KG1vZGVsMyxkYXRhLmZyYW1lKEhTLkdyYWQ9NTUsTXVyZGVyPTgpLGludGVydmFsPVwicHJlZGljdGlvblwiLGxldmVsPTAuOTgpXG5gYGAifQ== -->
-<pre class="r"><code>#Obtain a 98% confidence interval for the Life Expectancy of a person living in a state where 55% of the population are High School graduates, and the murder rate is 8 per 100,000.
-predict(model3,data.frame(HS.Grad=55,Murder=8),interval=&quot;prediction&quot;,level=0.98)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiICAgICAgIGZpdCAgICAgIGx3ciAgICAgIHVwclxuMSA3MC44MTQxNiA2OC44NzUyNyA3Mi43NTMwNlxuIn0= -->
-<pre><code>       fit      lwr      upr
-1 70.81416 68.87527 72.75306</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI1NpbmNlIG91ciBtb2RlbCBvbmx5IGhhcyB0d28gcHJlZGljdG9yIHZhcmlhYmxlcywgd2UgY2FuIGdlbmVyYXRlIGEgM0QgcGxvdCBvZiBvdXIgZGF0YSBhbmQgdGhlIGZpdHRlZCByZWdyZXNzaW9uIHBsYW5lLiBDcmVhdGUgdGhpcyBwbG90LlxuaWYoIXJlcXVpcmUocmdsKSl7XG4gIGluc3RhbGwucGFja2FnZXMoXCJyZ2xcIilcbn1cbmBgYCJ9 -->
-<pre class="r"><code>#Since our model only has two predictor variables, we can generate a 3D plot of our data and the fitted regression plane. Create this plot.
-if(!require(rgl)){
-  install.packages(&quot;rgl&quot;)
-}</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiByZ2xcbiJ9 -->
-<pre><code>Loading required package: rgl</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGlicmFyeShyZ2wpXG5wbG90ZGF0IDwtIGV4cGFuZC5ncmlkKEhTLkdyYWQ9c2VxKDM0LDcwLCBieT0yKSwgTXVyZGVyPXNlcSgxLDE2LCBieT0xKSlcbnBsb3RkYXQkcHJlZDEgPC0gcHJlZGljdChtb2RlbDMsIG5ld2RhdGEgPSBwbG90ZGF0KVxud2l0aChzdGF0ZTc3LCBwbG90M2QoSFMuR3JhZCwgTXVyZGVyLCBMaWZlLkV4cCwgY29sID0gXCJibHVlXCIsIHNpemUgPSAxLCB0eXBlID0gXCJzXCIpKVxud2l0aChwbG90ZGF0LCBzdXJmYWNlM2QodW5pcXVlKEhTLkdyYWQpLCB1bmlxdWUoTXVyZGVyKSwgcHJlZDEsIGFscGhhPTAuNSwgZnJvbnQ9XCJsaW5lXCIsIGJhY2s9XCJsaW5lXCIpKVxuYGBgIn0= -->
-<pre class="r"><code>library(rgl)
-plotdat &lt;- expand.grid(HS.Grad=seq(34,70, by=2), Murder=seq(1,16, by=1))
-plotdat$pred1 &lt;- predict(model3, newdata = plotdat)
-with(state77, plot3d(HS.Grad, Murder, Life.Exp, col = &quot;blue&quot;, size = 1, type = &quot;s&quot;))
-with(plotdat, surface3d(unique(HS.Grad), unique(Murder), pred1, alpha=0.5, front=&quot;line&quot;, back=&quot;line&quot;))</code></pre>
-<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Add a new chunk by clicking the <em>Insert Chunk</em> button on the toolbar or by pressing <em>Ctrl+Alt+I</em>.</p>
 <p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQojPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCiNodHRwOi8vci1leGVyY2lzZXMuY29tLzIwMTcvMDEvMTUvbXVsdGlwbGUtcmVncmVzc2lvbi1wYXJ0LTEvDQojTXVsdGlwbGUgUmVncmVzc2lvbiAoUGFydCAxKQ0KIz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQoNCg0KI2EuIExvYWQgdGhlIHN0YXRlIGRhdGFzZXRzLg0KZGF0YShzdGF0ZSkNCiNiLiBDb252ZXJ0IHRoZSBzdGF0ZS54NzcgZGF0YXNldCB0byBhIGRhdGFmcmFtZS4NCnN0YXRlNzcgPSBhcy5kYXRhLmZyYW1lKHN0YXRlLng3NykNCiNjLiBSZW5hbWUgdGhlIExpZmUgRXhwIHZhcmlhYmxlIHRvIExpZmUuRXhwLCBhbmQgSFMgR3JhZCB0byBIUy5HcmFkLiAoVGhpcyBhdm9pZHMgcHJvYmxlbXMgd2l0aCByZWZlcnJpbmcgdG8gdGhlc2UgdmFyaWFibGVzIHdoZW4gc3BlY2lmeWluZyBhIG1vZGVsLikNCm5hbWVzKHN0YXRlNzcpWzRdIDwtICJMaWZlLkV4cCINCm5hbWVzKHN0YXRlNzcpWzZdIDwtICJIUy5HcmFkIg0KDQojU3VwcG9zZSB3ZSB3YW50ZWQgdG8gZW50ZXIgYWxsIHRoZSB2YXJpYWJsZXMgaW4gYSBmaXJzdC1vcmRlciBsaW5lYXIgcmVncmVzc2lvbiBtb2RlbCB3aXRoIExpZmUgRXhwZWN0YW5jeSBhcyB0aGUgZGVwZW5kZW50IHZhcmlhYmxlLiBGaXQgdGhpcyBtb2RlbC4NCm1vZGVsIDwtIGxtKExpZmUuRXhwIH4gLiwgZGF0YSA9IHN0YXRlNzcpICN0aGUgJy4nIG1lYW5zICdhbGwnDQpzdW1tYXJ5KG1vZGVsKQ0KDQojU3VwcG9zZSB3ZSB3YW50ZWQgdG8gcmVtb3ZlIHRoZSBJbmNvbWUsIElsbGl0ZXJhY3ksIGFuZCBBcmVhIHZhcmlhYmxlcyBmcm9tIHRoZSBtb2RlbCBpbiBFeGVyY2lzZSAyLiBVc2UgdGhlIHVwZGF0ZSBmdW5jdGlvbiB0byBmaXQgdGhpcyBtb2RlbC4NCm1vZGVsMiA8LSB1cGRhdGUobW9kZWwsIC4gfiAuIC1JbmNvbWUgLUlsbGl0ZXJhY3kgLUFyZWEpICN0aGUgJy4nIG1lYW5zICdzYW1lIGFzIGluIG9yaWdpbmFsIG1vZGVsJw0Kc3VtbWFyeShtb2RlbDIpDQoNCiNMZXTigJlzIGFzc3VtZSB0aGF0IHdlIGhhdmUgc2V0dGxlZCBvbiBhIG1vZGVsIHRoYXQgaGFzIEhTLkdyYWQgYW5kIE11cmRlciBhcyBwcmVkaWN0b3JzLiBGaXQgdGhpcyBtb2RlbC4NCm1vZGVsMyA8LSBsbShMaWZlLkV4cCB+IEhTLkdyYWQrTXVyZGVyLCBkYXRhID0gc3RhdGU3NykNCnN1bW1hcnkobW9kZWwzKQ0KDQojQWRkIGFuIGludGVyYWN0aW9uIHRlcm0gdG8gdGhlIG1vZGVsIGluIEV4ZXJjaXNlIDQgKDMgZGlmZmVyZW50IHdheXMpLg0KbW9kZWw0IDwtIGxtKExpZmUuRXhwIH4gSFMuR3JhZCtNdXJkZXIrSFMuR3JhZDpNdXJkZXIsIGRhdGEgPSBzdGF0ZTc3KQ0Kc3VtbWFyeShtb2RlbDQpDQptb2RlbDQgPC0gbG0oTGlmZS5FeHAgfiBIUy5HcmFkKk11cmRlciwgZGF0YSA9IHN0YXRlNzcpDQpzdW1tYXJ5KG1vZGVsNCkNCm1vZGVsNCA8LSBsbShMaWZlLkV4cCB+IChIUy5HcmFkK011cmRlcileMiwgZGF0YSA9IHN0YXRlNzcpDQpzdW1tYXJ5KG1vZGVsNCkNCg0KI0ZvciB0aGlzIGFuZCB0aGUgcmVtYWluaW5nIGV4ZXJjaXNlcyBpbiB0aGlzIHNldCB3ZSB3aWxsIHVzZSB0aGUgbW9kZWwgZnJvbSBFeGVyY2lzZSA0Lg0KI09idGFpbiA5NSUgY29uZmlkZW5jZSBpbnRlcnZhbHMgZm9yIHRoZSBjb2VmZmljaWVudHMgb2YgdGhlIHR3byBwcmVkaWN0b3IgdmFyaWFibGVzLg0KY29uZmludChtb2RlbDMsIGxldmVsID0gMC45NSkNCg0KI1ByZWRpY3QgdGhlIExpZmUgRXhwZWN0YW5jeSBmb3IgYSBzdGF0ZSB3aGVyZSA1NSUgb2YgdGhlIHBvcHVsYXRpb24gYXJlIEhpZ2ggU2Nob29sIGdyYWR1YXRlcywgYW5kIHRoZSBtdXJkZXIgcmF0ZSBpcyA4IHBlciAxMDAsMDAwLg0KcHJlZGljdChtb2RlbDMsIGRhdGEuZnJhbWUoSFMuR3JhZD01NSwgTXVyZGVyPTgpKQ0KDQojT2J0YWluIGEgOTglIGNvbmZpZGVuY2UgaW50ZXJ2YWwgZm9yIHRoZSBtZWFuIExpZmUgRXhwZWN0YW5jeSBpbiBhIHN0YXRlIHdoZXJlIDU1JSBvZiB0aGUgcG9wdWxhdGlvbiBhcmUgSGlnaCBTY2hvb2wgZ3JhZHVhdGVzLCBhbmQgdGhlIG11cmRlciByYXRlIGlzIDggcGVyIDEwMCwwMDAuDQpwcmVkaWN0KG1vZGVsMywgZGF0YS5mcmFtZShIUy5HcmFkPTU1LCBNdXJkZXI9OCksIGludGVydmFsID0gImNvbmZpZGVuY2UiLCBsZXZlbCA9IDAuOTgpDQoNCiNPYnRhaW4gYSA5OCUgY29uZmlkZW5jZSBpbnRlcnZhbCBmb3IgdGhlIExpZmUgRXhwZWN0YW5jeSBvZiBhIHBlcnNvbiBsaXZpbmcgaW4gYSBzdGF0ZSB3aGVyZSA1NSUgb2YgdGhlIHBvcHVsYXRpb24gYXJlIEhpZ2ggU2Nob29sIGdyYWR1YXRlcywgYW5kIHRoZSBtdXJkZXIgcmF0ZSBpcyA4IHBlciAxMDAsMDAwLg0KcHJlZGljdChtb2RlbDMsZGF0YS5mcmFtZShIUy5HcmFkPTU1LE11cmRlcj04KSxpbnRlcnZhbD0icHJlZGljdGlvbiIsbGV2ZWw9MC45OCkNCg0KI1NpbmNlIG91ciBtb2RlbCBvbmx5IGhhcyB0d28gcHJlZGljdG9yIHZhcmlhYmxlcywgd2UgY2FuIGdlbmVyYXRlIGEgM0QgcGxvdCBvZiBvdXIgZGF0YSBhbmQgdGhlIGZpdHRlZCByZWdyZXNzaW9uIHBsYW5lLiBDcmVhdGUgdGhpcyBwbG90Lg0KaWYoIXJlcXVpcmUocmdsKSl7DQogIGluc3RhbGwucGFja2FnZXMoInJnbCIpDQp9DQpsaWJyYXJ5KHJnbCkNCg0KcGxvdGRhdCA8LSBleHBhbmQuZ3JpZChIUy5HcmFkPXNlcSgzNCw3MCwgYnk9MiksIE11cmRlcj1zZXEoMSwxNiwgYnk9MSkpDQpwbG90ZGF0JHByZWQxIDwtIHByZWRpY3QobW9kZWwzLCBuZXdkYXRhID0gcGxvdGRhdCkNCndpdGgoc3RhdGU3NywgcGxvdDNkKEhTLkdyYWQsIE11cmRlciwgTGlmZS5FeHAsIGNvbCA9ICJibHVlIiwgc2l6ZSA9IDEsIHR5cGUgPSAicyIpKQ0Kd2l0aChwbG90ZGF0LCBzdXJmYWNlM2QodW5pcXVlKEhTLkdyYWQpLCB1bmlxdWUoTXVyZGVyKSwgcHJlZDEsIGFscGhhPTAuNSwgZnJvbnQ9ImxpbmUiLCBiYWNrPSJsaW5lIikpDQoNCg0KDQoNCg0KDQoNCmBgYA0KDQpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ3RybCtBbHQrSSouDQoNCldoZW4geW91IHNhdmUgdGhlIG5vdGVib29rLCBhbiBIVE1MIGZpbGUgY29udGFpbmluZyB0aGUgY29kZSBhbmQgb3V0cHV0IHdpbGwgYmUgc2F2ZWQgYWxvbmdzaWRlIGl0IChjbGljayB0aGUgKlByZXZpZXcqIGJ1dHRvbiBvciBwcmVzcyAqQ3RybCtTaGlmdCtLKiB0byBwcmV2aWV3IHRoZSBIVE1MIGZpbGUpLg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQojPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCiNodHRwOi8vci1leGVyY2lzZXMuY29tLzIwMTcvMDEvMjYvbXVsdGlwbGUtcmVncmVzc2lvbi1wYXJ0LTItZGlhZ25vc3RpY3MvDQojTXVsdGlwbGUgUmVncmVzc2lvbiAoUGFydCAyKSDigJMgRGlhZ25vc3RpY3MNCiM9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQ0KDQoNCg0KI2EuIExvYWQgdGhlIHN0YXRlIGRhdGFzZXRzLg0KZGF0YShzdGF0ZSkNCiNiLiBDb252ZXJ0IHRoZSBzdGF0ZS54NzcgZGF0YXNldCB0byBhIGRhdGFmcmFtZS4NCnN0YXRlNzcgPC0gYXMuZGF0YS5mcmFtZShzdGF0ZS54NzcpDQojYy4gUmVuYW1lIHRoZSBMaWZlIEV4cCB2YXJpYWJsZSB0byBMaWZlLkV4cCwgYW5kIEhTIEdyYWQgdG8gSFMuR3JhZC4gKFRoaXMgYXZvaWRzIHByb2JsZW1zIHdpdGggcmVmZXJyaW5nIHRvIHRoZXNlIHZhcmlhYmxlcyB3aGVuIHNwZWNpZnlpbmcgYSBtb2RlbC4pDQpuYW1lcyhzdGF0ZTc3KVs0XSA8LSAiTGlmZS5FeHAiDQpuYW1lcyhzdGF0ZTc3KVs2XSA8LSAiSFMuR3JhZCINCiNkLiBQcm9kdWNlIHRoZSBjb3JyZWxhdGlvbiBtYXRyaXguDQpyb3VuZChjb3Ioc3RhdGU3NyksIDMpICNkaXNwbGF5cyBjb3JyZWxhdGlvbnMgdG8gMyBkZWNpbWFsIHBsYWNlcw0KI2UuIENyZWF0ZSBhIHNjYXR0ZXJwbG90IG1hdHJpeCBmb3IgdGhlIHZhcmlhYmxlcyBMaWZlLkV4cCwgSFMuR3JhZCwgTXVyZGVyLCBhbmQgRnJvc3QuDQpwYWlycyh+IExpZmUuRXhwICsgSFMuR3JhZCArIE11cmRlciArIEZyb3N0LCBkYXRhID0gc3RhdGU3NywgZ2FwPTApDQoNCg0KI2EuIEZpdCB0aGUgbW9kZWwgd2l0aCBMaWZlLkV4cCBhcyBkZXBlbmRlbnQgdmFyaWFibGUsIGFuZCBIUy5HcmFkIGFuZCBNdXJkZXIgYXMgcHJlZGljdG9ycy4NCm1vZGVsIDwtIGxtKExpZmUuRXhwIH4gSFMuR3JhZCArIE11cmRlciwgZGF0YSA9IHN0YXRlNzcpDQpzdW1tYXJ5KG1vZGVsKQ0KI2IuIE9idGFpbiB0aGUgcmVzaWR1YWxzLg0KcmVzaWRzIDwtIG1vZGVsJHJlc2lkdWFscw0KI2MuIE9idGFpbiB0aGUgZml0dGVkIHZhbHVlcy4NCmZpdHRlZCA8LSBtb2RlbCRmaXR0ZWQudmFsdWVzDQoNCg0KDQoNCg0KDQoNCg0KYGBgDQoNCkFkZCBhIG5ldyBjaHVuayBieSBjbGlja2luZyB0aGUgKkluc2VydCBDaHVuayogYnV0dG9uIG9uIHRoZSB0b29sYmFyIG9yIGJ5IHByZXNzaW5nICpDdHJsK0FsdCtJKi4NCg0KV2hlbiB5b3Ugc2F2ZSB0aGUgbm90ZWJvb2ssIGFuIEhUTUwgZmlsZSBjb250YWluaW5nIHRoZSBjb2RlIGFuZCBvdXRwdXQgd2lsbCBiZSBzYXZlZCBhbG9uZ3NpZGUgaXQgKGNsaWNrIHRoZSAqUHJldmlldyogYnV0dG9uIG9yIHByZXNzICpDdHJsK1NoaWZ0K0sqIHRvIHByZXZpZXcgdGhlIEhUTUwgZmlsZSkuDQo=</div>
 
 
 

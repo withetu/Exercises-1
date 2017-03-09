@@ -1,0 +1,50 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#==========================================================================
+#http://r-exercises.com/2017/01/26/multiple-regression-part-2-diagnostics/
+#Multiple Regression (Part 2) – Diagnostics
+#==========================================================================
+
+
+
+#a. Load the state datasets.
+data(state)
+#b. Convert the state.x77 dataset to a dataframe.
+state77 <- as.data.frame(state.x77)
+#c. Rename the Life Exp variable to Life.Exp, and HS Grad to HS.Grad. (This avoids problems with referring to these variables when specifying a model.)
+names(state77)[4] <- "Life.Exp"
+names(state77)[6] <- "HS.Grad"
+#d. Produce the correlation matrix.
+round(cor(state77), 3) #displays correlations to 3 decimal places
+#e. Create a scatterplot matrix for the variables Life.Exp, HS.Grad, Murder, and Frost.
+pairs(~ Life.Exp + HS.Grad + Murder + Frost, data = state77, gap=0)
+
+
+#a. Fit the model with Life.Exp as dependent variable, and HS.Grad and Murder as predictors.
+model <- lm(Life.Exp ~ HS.Grad + Murder, data = state77)
+summary(model)
+#b. Obtain the residuals.
+resids <- model$residuals
+#c. Obtain the fitted values.
+fitted <- model$fitted.values
+
+
+
+
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
