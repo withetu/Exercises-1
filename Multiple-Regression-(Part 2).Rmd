@@ -37,6 +37,82 @@ resids <- model$residuals
 fitted <- model$fitted.values
 
 
+#a. Create a residual plot (residuals vs. fitted values).
+plot(fitted, resids, main = "Residual Plot", xlab = "Fitted Values", ylab = "Residuals")
+abline(h = 0, col="red")
+#b. Create the same residual plot using the plot command on the lm object from Exercise 2.
+plot(model, which = 1)
+
+
+#Create plots of the residuals vs. each of the predictor variables.
+par(mfrow=c(1,2)) # draw the two plots side by side
+
+plot(state77$HS.Grad, resids, main = "Residuals vs HS.Grad", xlab = "HS.Grad", ylab = "Residuals")
+abline(h = 0, col = "red")
+plot(state77$Murder, resids, main = "Residuals vs Murder", xlab = "Murder", ylab = "Residuals")
+abline(h = 0, col = "red")
+
+par(mfrow = c(1,1)) # restore to the default
+
+
+#a. Create a Normality plot.
+qqnorm(resids, ylab = "Residuals")
+qqline(resids)
+#b. Create the same plot using the plot command on the lm object from Exercise 2.
+plot(model, which = 2)
+
+
+#a. Obtain the studentized residuals.
+stzed <- rstudent(model)
+#b. Does there appear to be any outliers?
+stzed[abs(stzed) >2]
+
+
+#a. Obtain the leverage value for each observation and plot them.
+lever <- hat(model.matrix(model))
+plot(lever)
+#b. Obtain the conventional threshold for leverage values. Are any observations influential?
+  #obtain the threshold
+thresh2 <- 2*length(model$coefficients)/length(lever)
+  #print leverage values above threshold
+lever[lever>thresh2]
+  #print corresponding state names
+rownames(state77)[which(lever>thresh2)]
+
+
+#a. Obtain DFFITS values.
+dffits1 <- dffits(model)
+#b. Obtain the conventional threshold. Are any observations influential?
+thresh3 <- 2*sqrt(length(model$coefficients)/length(dffits1))
+dffits1[dffits1 > thresh3]
+#c. Obtain DFBETAS values.
+dfbetas1 <- dfbetas(model)
+#d. Obtain the conventional threshold. Are any observations influential?
+thresh4 <- 2/sqrt(length(dfbetas1[,1]))
+dfbetas1[dfbetas1[,1] > thresh4,1] #for intercept
+
+dfbetas1[dfbetas1[,2] > thresh4,2] #for HS.Grad
+
+dfbetas1[dfbetas1[,3] > thresh4,3] #for Murder
+
+
+#a. Obtain Cook’s distance values and plot them.
+cooksd <- cooks.distance(model)
+plot(cooksd, ylab = "Cook's Distance")
+#b. Obtain the same plot using the plot command on the lm object from Exercise 2.
+plot(model, which=4)
+#c. Obtain the threshold value. Are any observations influential?
+thresh <- 4/length(resids)
+cooksd[cooksd > thresh]
+
+
+#Create the Influence Plot using a function from the car package.
+library(car)
+influencePlot(model, main="Influence Plot")
+
+
+
+
 
 
 
