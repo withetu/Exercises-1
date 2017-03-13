@@ -1,0 +1,100 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#================================================================================
+#http://r-exercises.com/2017/01/29/data-science-for-doctors-part-1-data-display/
+#Data Science for Doctors – Part 1 : Data Display
+#================================================================================
+
+
+
+
+library(ggplot2)
+#load the data set and transform it into a proper data frame format
+url <- "https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data"
+data <- read.table(url, fileEncoding = "UTF-8", sep = ",")
+names <- c('preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class')
+colnames(data) <- names
+
+#Create a frequency table of the class variable.
+table(data['class'])
+
+#Create a pie chart of the class.fac variable.
+class.fac <- factor(data[['class']],levels=c(0,1), labels= c("Negative","Positive"))
+
+ggplot(data, aes(x = factor(1), fill = class.fac))+
+  geom_bar(width = 1)+
+  coord_polar(theta = "y")+
+  labs(x = "", y = "")
+
+#Create a bar plot for the age variable.
+barplot(data[['age']])
+  #or
+ggplot(data, aes(age))+
+  geom_bar()+
+  labs(x = "Age", y = "# of Candidates")
+
+
+#Create a strip chart for the mass against class.fac.
+ggplot(data, aes(mass,class.fac)) +
+  geom_jitter()+
+  labs(x = "BMI", y = "Diagnosis")
+
+
+#Create a density plot for the preg variable.
+plot(density(data$preg))
+  #or
+ggplot(data, aes(preg))+
+  geom_density()+
+  labs(x = "# of Pregancies")
+
+
+#Create a histogram for the preg variable.
+hist(data[['preg']])
+  #or
+ggplot(data, aes(preg))+
+  geom_histogram()+
+  labs(x = "# of Pregancies", y = "# of Candidates")
+
+
+#Create a boxplot for the age against class.fac.
+ggplot(data, aes(class.fac, age))+
+  geom_boxplot()+
+  labs(x = "Diagnosis", y = "AGe" )
+
+
+#Create a normal QQ plot and a line which passes through the first and third quartiles.
+qqnorm(data[["age"]])
+qqline(data[["age"]])
+
+
+#Create a scatter plot for the variables age against the mass variable .
+plot(data$age,data$mass)
+  #or
+ggplot(data, aes(age, mass))+
+  geom_point()+
+  labs(x = "Age", y = "BMI")
+
+
+#Create scatter plots for every variable of the data set against every variable of the data set on a single window.
+#hint: it is quite simple, don’t overthink about it.
+plot(data)
+  
+
+
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
