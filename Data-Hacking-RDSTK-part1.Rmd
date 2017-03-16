@@ -1,0 +1,56 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#==========================================
+#http://r-exercises.com/2017/01/31/rdstk1/
+#Data Hacking with RDSTK (part 1)
+#==========================================
+
+
+
+library(RDSTK)
+
+#Convert the ip adress to co-ordinates. address=”165.124.145.197″. Store the results under the variable stat
+stat = ip2coordinates("165.124.145.197")
+
+#Derive the elevation of that location using the lattitude and longitude. Use the function coordinate coordinates2statistics() function to achieve this. Once you get the elevation store this back as one of the features of stat.
+stat$elevation = coordinates2statistics(stat[3], stat[6], "elevation")['statistics.elevation.value']
+
+#Derive the population_density of that location using the lattitude and longitude. Use the function coordinate coordinates2statistics() function to achieve this. Once you get the elevation store this back as one of the features of stat called pop_den.
+stat$pop_den=coordinates2statistics(stat[3],stat[6],"population_density")["statistics.population_density.value"]
+
+#Great. You are getting the hang of it. Let us try getting the mean temperature of that location. You will notice that it returns a list of 12 numbers, each for a month.
+#Run this code and see yourself
+coordinates2statistics(stat[3],stat[6],"mean_temperature")[1]
+coordinates2statistics(stat[3],stat[6],"mean_temperature")["statistics.mean_temperature.value"]
+
+#We have to transform the mean_temperature so we can store this as one of the features in our stat dataset. One way to do this is to convert it from long to wide format but that would be too reduntant. Let’s just find the mean temperature from January-December. You might find the sapply function useful to convert each element in the list to integers.
+mean(sapply(coordinates2statistics(stat[3], stat[6], "mean_temperature")["statistics.mean_temperature.value"], as.integer))
+
+#We decided we do not really need January-December mean value. We actually need the mean temperature from June-December. Make that adjustment to your last code and store the results back in stat under the name mean_temp
+stat$mean_temp = mean(sapply(coordinates2statistics(stat[3], stat[6], "mean_temperature")["statistics.mean_temperature.value"][c(6:12),], as.integer))
+
+#Okay great. Now lets work with more IP-address data. Here is a list of a few ip-addresses scraped from a few commenters of my exercises.
+list = c("165.124.145.197","31.24.74.155","79.129.19.173")
+df = data.frame(list)
+df[,1] = as.character(df[,1])
+
+#Use a iterator like apply that will go through the list and derive its statistics with the ip2coordinates() function. This is the first part. You may get a list within list sort of result. Store this in a variable called data
+data = lapply(df[,1], ip2coordinates)
+
+#Use a method to convert that list within list into a dataframe with 3 rows and all columns derived from the ip2coordinates() function. You are open to use any method for this.
+do.call(rbind.data.frame, data)
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
