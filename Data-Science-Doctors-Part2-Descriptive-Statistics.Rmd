@@ -1,0 +1,109 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#==========================================================================================
+#http://r-exercises.com/2017/02/05/data-science-for-doctors-part-2-descriptive-statistics/
+#Data Science for Doctors – Part 2 : Descriptive Statistics
+#==========================================================================================
+
+##Run Part1 before run this code chunk
+
+library(Hmisc)
+
+
+#Find the mean of the mass variable.
+mean(data[['mass']])
+#OR
+sum(data[['mass']])/length(data[['mass']])
+
+
+
+#Find the median of the mass variable.
+median(data[['mass']])
+#OR
+(sort(data[['mass']])[length(data[['mass']])/2] + sort(data[['mass']])[length(data[['mass']])/2+1] )/2
+
+
+
+#Find the mode of the mass.
+getmode <- function(v){
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+getmode(data[['mass']])
+
+
+
+#Find the standard deviation of the age variable.
+sd(data[["age"]])
+#OR
+num <- 0
+for (i in 1:length(data$age)){
+  num <- num + (data$age[i]-mean(data$age))^2
+}
+sqrt(num/sum(length(data$age)))
+
+
+
+#Find the variance of the mass variable.
+var(data$mass)
+#OR
+num <- 0
+for (i in 1:length(data$mass)){
+  num <- num + (data$mass[i] - mean(data$mass))^2
+}
+num/length(data$mass)
+
+
+
+#Find the interquartile range of the age variable.
+IQR(data[["age"]]) # interquartile range
+#OR
+(sort(data[['age']])[length(data[['age']])*.75] - sort(data[['age']])[length(data[['age']])*.25] )
+
+
+
+#Find the median absolute deviation of age variable. Assume that the age follows a normal distribution.
+mad(data[['age']])
+
+
+
+#Find the covariance of the variables age, mass.
+cov(data$age, data$mass)
+#OR
+num <- 0
+for (i in 1:length(data$age)){
+  num <- num + (data$age[i] - mean(data$age)) * (data$mass[i] - mean(data$mass))
+}
+num/length(data$age)
+
+
+
+#Find the spearman and pearson correlations of the variables age, mass.
+  #Note: Pearson is used when the relation between the variables is linear, 
+  # while spearman make no such assumption
+cor(data$age, data$mass, method = "spearman")
+  #Used to measure the degree of the relationship between linearly related variables
+cor(data$age, data$mass, method = "pearson")
+
+
+
+#Print the summary statistics, and the structure of the data set. Moreover construct the correlation matrix of the data set.
+summary(data)
+str(data)
+rcorr(as.matrix(data[-length(data)]),type = "spearman")
+rcorr(as.matrix(data[-length(data)]),type = "pearson")
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
