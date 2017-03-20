@@ -1,0 +1,117 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#===================================================================
+#http://r-exercises.com/2017/02/02/multipanel-graphics-in-r-part-1/
+#Multipanel Graphics in R (part 1)
+#===================================================================
+
+
+library(rgdal)
+
+#Consider the iris dataset, draw the following scatterplots, a) Sepal.Length vs Sepal.Width, b) Sepal.Length vs Petal.Length , and c) Sepal.Length vs Petal.Width . Annotate each scatterplot with a title. Use separate colors and plotting characters for each plot.
+attach(iris)
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch = 1)
+title("Sepal.Length vs Sepal.Width")
+
+plot(Sepal.Length, Petal.Length, col='magenta', pch = 2)
+title("Sepal.Length vs Petal.Length")
+
+plot(Sepal.Length, Petal.Width, col='red', pch = 3)
+title("Sepal.Length vs Petal.Width")
+
+#Plot the three scatterplots in the same figure as subplots arranged in one row. Use mfrow.
+par(mfrow=c(1,3))
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch = 1)
+title("Sepal.Length vs Sepal.Width")
+plot(Sepal.Length, Petal.Length, col='magenta', pch = 2)
+title("Sepal.Length vs Petal.Length")
+plot(Sepal.Length, Petal.Width, col='red', pch = 3)
+title("Sepal.Length vs Petal.Width")
+
+#Plot the three scatterplots in the same figure as subplots arranged in one column. Use mfrow .
+par(mfrow=c(3,1))
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch = 1)
+title("Sepal.Length vs Sepal.Width")
+plot(Sepal.Length, Petal.Length, col='magenta', pch = 2)
+title("Sepal.Length vs Petal.Length")
+plot(Sepal.Length, Petal.Width, col='red', pch = 3)
+title("Sepal.Length vs Petal.Width")
+
+#Repeat the same scatterplots. Partition in such a way that the first row contains plots a and b, and the second row contain plot c. Use mfrow.
+par(mfrow=c(2,2))
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch=1)
+title("Sepal.Length vs Sepal.Width")
+plot(Sepal.Length, Petal.Length, col='magenta', pch=2)
+title("Sepal.Length vs Petal.Length")
+plot(Sepal.Length, Petal.Width, col='red', pch=3)
+title("Sepal.Length vs Petal.Width")
+
+#Repeat Exercise 2 with mfcol.
+par(mfcol=c(3,1))
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch = 1)
+title("Sepal.Length vs Sepal.Width")
+plot(Sepal.Length, Petal.Length, col='magenta', pch = 2)
+title("Sepal.Length vs Petal.Length")
+plot(Sepal.Length, Petal.Width, col='red', pch = 3)
+title("Sepal.Length vs Petal.Width")
+
+#Repeat Exercise 3 with mfcol.
+par(mfcol=c(1,3))
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch = 1)
+title("Sepal.Length vs Sepal.Width")
+plot(Sepal.Length, Petal.Length, col='magenta', pch = 2)
+title("Sepal.Length vs Petal.Length")
+plot(Sepal.Length, Petal.Width, col='red', pch = 3)
+title("Sepal.Length vs Petal.Width")
+
+#Repeat Exercise 4 with mfcol.
+par(mfcol=c(2,2))
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch=1)
+title("Sepal.Length vs Sepal.Width")
+plot(Sepal.Length, Petal.Width, col='red', pch=3)
+title("Sepal.Length vs Petal.Width")
+plot(Sepal.Length, Petal.Length, col='magenta', pch=2)
+title("Sepal.Length vs Petal.Length")
+
+#Repeat Exercise 2 with layout.
+layout(matrix(c(1,2,3), 1, 3, byrow = TRUE))
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch = 1)
+title("Sepal.Length vs Sepal.Width")
+plot(Sepal.Length, Petal.Length, col='magenta', pch = 2)
+title("Sepal.Length vs Petal.Length")
+plot(Sepal.Length, Petal.Width, col='red', pch = 3)
+title("Sepal.Length vs Petal.Width")
+
+#Repeat Exercise 3 with layout.
+layout(matrix(c(1,2,3), 3,1, byrow = TRUE))
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch = 1)
+title("Sepal.Length vs Sepal.Width")
+plot(Sepal.Length, Petal.Length, col='magenta', pch = 2)
+title("Sepal.Length vs Petal.Length")
+plot(Sepal.Length, Petal.Width, col='red', pch = 3)
+title("Sepal.Length vs Petal.Width")
+
+#Repeat Exercise 4 with layout. In this case, let scatterplot c occupy the second row completely.
+layout(matrix(c(1,2,3,3), 2,2, byrow = TRUE))
+plot(Sepal.Length, Sepal.Width, col='skyblue', pch = 1)
+title("Sepal.Length vs Sepal.Width")
+plot(Sepal.Length, Petal.Length, col='magenta', pch = 2)
+title("Sepal.Length vs Petal.Length")
+plot(Sepal.Length, Petal.Width, col='red', pch = 3)
+title("Sepal.Length vs Petal.Width")
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
