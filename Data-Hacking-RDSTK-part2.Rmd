@@ -1,0 +1,65 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#==========================================
+#http://r-exercises.com/2017/02/11/rdstk2/
+#Data Hacking with RDSTK 2
+#==========================================
+
+
+
+
+
+library(RDSTK)
+
+#a.create a string called s1 and store “statistics” inside
+#b.create a string called s3 and store “value”
+#c. create a function that will take a string s2 as an input and output a string in the format s1+s2+s3 seperated by “.”. Name this function “stringer”
+s1 = "statistics"
+s3 = "value"
+stringer = function(s2){
+  s1 = "statistics"
+  s3 = "value"
+  s2 = as.character(s2)
+  return(paste(s1, s2, s3, sep = "."))
+
+}
+
+#Lets test out this function.
+stringer("hello")
+
+#Create a for loop that will iterate over the rows in df and derive the population density of the location using coordinates2statistics function. Save the results in df$pop
+for (i in 1:nrow(df)){
+    df$pop[i]=coordinates2statistics(df[i,4], df[i,7],"population_density")["statistics.population_density.value"]
+}
+df
+
+
+#Lets now make a function using elements you learned from exercise 3 and 4. So the function is going to take a string as an input like s2 from exercise 3. Inside the function you can combine it with s1 and s3. You have to create the same for loop from exercise 4. Instead of storing the result of the for loop in df$pop, use df$pop2.You should see a new feature inside df with all the results once you return df from it.
+ stat_maker=function(s2){
+   s1="statistics"
+   s3="value"
+   s2=as.character(s2)
+ for (i in 1:nrow(df)) {
+   df$pop2[i]=coordinates2statistics(df[i,4],df[i,7],s2)[paste(s1,s2,s3, sep = ".")]
+ }
+   return(df)}
+ 
+ 
+#Test the function stat_maker. stat_maker("population_density"). Notice it did not explicitly make the changes to the df but just returned it once you called the function. This is because we did not define df as a global variable. But thats okay. We will learn it later
+stat_maker("population_density")
+
+ 
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).

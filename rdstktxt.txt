@@ -1,0 +1,4 @@
+"ip.address","dma_code","latitude","country_code3","area_code","longitude","country_name","postal_code","region","locality","country_code"
+"165.124.145.197",602,42.0586013793945,"USA",847,-87.6845016479492,"United States","60208","IL","Evanston","US"
+"31.24.74.155",0,57.0999984741211,"SWE",0,12.25,"Sweden","","06","Varberg","SE"
+"79.129.19.173",0,39.7378005981445,"GRC",0,22.2891998291016,"Greece","","21","Tírnavos","GR"
