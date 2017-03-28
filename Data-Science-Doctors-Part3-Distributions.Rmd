@@ -1,0 +1,154 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#===================================================================================
+#  http://r-exercises.com/2017/02/13/data-science-for-doctors-part-3-distributions/
+#  Data Science for Doctors – Part 3 : Distributions
+#===================================================================================
+
+library(ggplot2)
+
+#The distributions that we will see are:
+
+#1)Binomial Distribution: The binomial distribution fits to repeated trials each with a dichotomous outcome such as success-failure, healthy-disease, heads-tails.
+
+#2)Normal Distribution: It is the most famous distribution, it is also assumed for many gene expression values.
+
+#3)T-Distribution: The T-distribution has many useful applications for testing hypotheses when the sample size is lower than thirty.
+
+#4)Chi-squared Distribution: The chi-squared distribution plays an important role in testing hypotheses about frequencies.
+
+#5)F-Distribution: The F-distribution is important for testing the equality of two variances.
+
+#Before proceeding, it might be helpful to look over the help pages for the choose, dbinom, pbinom , rbinom, qbinom,pnorm, qnorm, rnorm, dnorm,pchisq, qchisq, dchisq, df, pf, df.
+
+
+#Let X be binomially distributed with n = 100 and p = 0.3.Compute the following:
+#a) P(X = 34), P(X ≥ 34), and P(X ≤ 34)
+#b) P(30 ≤ X ≤ 60)
+#c) The quantiles x0.025, and x0.975
+n <- 100
+p <- 0.3
+#a
+dbinom(34, n, p)
+sum(dbinom(34:n, n, p))
+pbinom(34, n, p)
+#b
+sum(dbinom(30:60, n, p))
+#c
+qbinom(0.025, n, p)
+qbinom(0.975, n, p)
+
+#Let X be normally distributed with mean = 3 and standard deviation = 1.Compute the following:
+#a) P(X 2),P(2 ≤ X ≤ 4)
+#b) The quantiles x0.025, x0.5and x0.975.
+m <- 3
+s <- 1
+#a
+pnorm(2,m,s)
+pnorm(4,m,s) - pnorm(2,m,s)
+#b
+qnorm(0.025,m,s)
+qnorm(0.5,m,s)
+qnorm(0.975,m,s)
+
+#Let T8 distribution.Compute the following:
+#a)P(T8 < 1), P(T8 > 2), P(-1 < T8 < 1).
+#b)The quantiles t0.025, t0.5, and t0.975. Can you justify the values of the quantiles?
+df <- 8
+#a
+pt(1,df)
+1-pt(2,df)
+pt(1,df)-pt(-1,df)
+#b
+qt(0.025, df)
+qt(0.5, df)
+1-qt(0.075, df)
+
+#Compute the following for the chi-squared distribution with 5 degrees of freedom:
+#a) P(X25<2), P(X25>4),P(4<X25<6).
+#b) The quantiles g0.025, g0.5, and g0.975.
+df <- 5
+#a
+pchisq(2,df)
+1-pchisq(4,df)
+# OR
+pchisq(4, df, lower.tail = FALSE)
+pchisq(6,df)-pchisq(4,df)
+#b
+qchisq(0.025, df, lower.tail=TRUE)
+qchisq(0.5, df, lower.tail=TRUE)
+qchisq(0.075, df, lower.tail=FALSE)
+
+#Compute the following for the F6,3 distribution:
+#a)P(F6,3 < 2), P(F6,3 > 3), P(1 < F6,3 < 4).
+#b)The quantiles f0.025, f0.5, and f0.975.
+df_1 <- 6
+df_2 <- 3
+#a
+pf(2, df_1, df_2)
+1 - pf(3, df_1, df_2)
+pf(4, df_1, df_2) - pf(1, df_1, df_2)
+#b
+qf(0.025, df_1, df_2)
+qf(0.05, df_1, df_2)
+qf(0.975, df_1, df_2)
+
+#Generate 100 observations following binomial distribution and plot them(if possible at the same plot):
+#a) n = 20, p = 0.3
+#b) n = 20, p = 0.5
+#c) n = 20, p = 0.7
+data <- data.frame(case = factor(rep(c("A","B","C"), each=100)), 
+                   gen = c(rbinom(100,20,0.3), rbinom(100,20,0.5), rbinom(100,20,0.7)))
+ggplot(data, aes(x=gen, fill=case))+geom_density(alpha=.3)
+
+
+#Generate 100 observations following normal distribution and plot them(if possible at the same plot):
+#a) standard normal distribution ( N(0,1) )
+#b) mean = 0, s = 3
+#c) mean = 0, s = 7
+data <- data.frame(case = factor(rep(c("A","B","C"), each=100)),
+                   gen = c(rnorm(100,0,1), rnorm(100,0,3), rnorm(100,0,7)))
+ggplot(data, aes(x=gen, fill=case))+geom_density(alpha=.3)
+
+
+#Generate 100 observations following T distribution and plot them(if possible at the same plot):
+#a) df = 5
+#b) df = 10
+#c) df = 25
+data <- data.frame(case = factor(rep(c("A","B","C"), each=100)),
+                   gen = c(rt(100,5), rt(100,10), rt(100,25)))
+ggplot(data, aes(x=gen, fill=case))+geom_density(alpha=.3)
+
+
+#Generate 100 observations following chi-squared distribution and plot them(if possible at the same plot):
+#a) df = 5
+#b) df = 10
+#c) df = 25
+data <- data.frame(case = factor(rep(c("A","B","C"), each=100)),
+                   gen = c(rchisq(100,5), rchisq(100,10), rchisq(100,25)))
+ggplot(data, aes(x=gen, fill=case))+geom_density(alpha=.3)
+
+
+#Generate 100 observations following F distribution and plot them(if possible at the same plot):
+#a) df1 = 3, df2 = 9
+#b) df1 = 9, df2 = 3
+#c) df1 = 15, df2 = 15
+data <- data.frame(case = factor(rep(c("A","B","C"), each=100)),
+                   gen = c(rf(100,3,9), rf(100,9,3), rf(100,15,15)))
+ggplot(data, aes(x=gen, fill=case))+geom_density(alpha=.3)+xlim(0,10)
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
