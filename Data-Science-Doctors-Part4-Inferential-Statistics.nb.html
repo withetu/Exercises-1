@@ -142,7 +142,7 @@ $(document).ready(function () {
 </style>
 <script>
 $(document).ready(function () {
-  window.initializeSourceEmbed("Data-Science-Doctors-Part2-Descriptive-Statistics.Rmd");
+  window.initializeSourceEmbed("Data-Science-Doctors-Part4-Inferential-Statistics.Rmd");
   window.initializeCodeFolding("show" === "show");
 });
 </script>
@@ -176,103 +176,26 @@ $(document).ready(function () {
 <p>Try executing this chunk by clicking the <em>Run</em> button within the chunk or by placing your cursor inside it and pressing <em>Ctrl+Shift+Enter</em>.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIz09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PVxuI2h0dHA6Ly9yLWV4ZXJjaXNlcy5jb20vMjAxNy8wMi8wNS9kYXRhLXNjaWVuY2UtZm9yLWRvY3RvcnMtcGFydC0yLWRlc2NyaXB0aXZlLXN0YXRpc3RpY3MvXG4jRGF0YSBTY2llbmNlIGZvciBEb2N0b3JzIOKAkyBQYXJ0IDIgOiBEZXNjcmlwdGl2ZSBTdGF0aXN0aWNzXG4jPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09XG4jI1J1biBQYXJ0MSBiZWZvcmUgcnVuIHRoaXMgY29kZSBjaHVua1xubGlicmFyeShIbWlzYylcbmBgYCJ9 -->
-<pre class="r"><code>#==========================================================================================
-#http://r-exercises.com/2017/02/05/data-science-for-doctors-part-2-descriptive-statistics/
-#Data Science for Doctors – Part 2 : Descriptive Statistics
-#==========================================================================================
-##Run Part1 before run this code chunk
-library(Hmisc)</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueiA9IDIuMzNcbmxvdyA8LSAzMSAtIHoqc2QoZGF0YSRtYXNzKS9zcXJ0KDI1MClcbmhpZ2ggPC0gMzEgKyB6KnNkKGRhdGEkbWFzcykvc3FydCgyNTApXG5sb3c7aGlnaFxuXG5gYGAifQ== -->
+<pre class="r"><code>z = 2.33
+low &lt;- 31 - z*sd(data$mass)/sqrt(250)
+high &lt;- 31 + z*sd(data$mass)/sqrt(250)
+low;high
+</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTG9hZGluZyByZXF1aXJlZCBwYWNrYWdlOiBsYXR0aWNlXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IHN1cnZpdmFsXG5Mb2FkaW5nIHJlcXVpcmVkIHBhY2thZ2U6IEZvcm11bGFcbkxvYWRpbmcgcmVxdWlyZWQgcGFja2FnZTogZ2dwbG90MlxuXG5BdHRhY2hpbmcgcGFja2FnZTog46S847ixSG1pc2PjpLzjuLJcblxuVGhlIGZvbGxvd2luZyBvYmplY3RzIGFyZSBtYXNrZWQgZnJvbSDjpLzjuLFwYWNrYWdlOmJhc2XjpLzjuLI6XG5cbiAgICBmb3JtYXQucHZhbCwgcm91bmQuUE9TSVh0LCB0cnVuYy5QT1NJWHQsIHVuaXRzXG4ifQ== -->
-<pre><code>Loading required package: lattice
-Loading required package: survival
-Loading required package: Formula
-Loading required package: ggplot2
-
-Attaching package: 㤼㸱Hmisc㤼㸲
-
-The following objects are masked from 㤼㸱package:base㤼㸲:
-
-    format.pval, round.POSIXt, trunc.POSIXt, units</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI5Ljk3OTUyXG5bMV0gMzIuMDIwNDhcbiJ9 -->
+<pre><code>[1] 29.97952
+[1] 32.02048</code></pre>
 <!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0ZpbmQgdGhlIG1lYW4gb2YgdGhlIG1hc3MgdmFyaWFibGUuXG5tZWFuKGRhdGFbWydtYXNzJ11dKVxuYGBgIn0= -->
-<pre class="r"><code>#Find the mean of the mass variable.
-mean(data[['mass']])</code></pre>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxueiA9IDIuNThcbmxvdyA8LSAzMSAtIHoqc2QoZGF0YSRtYXNzKS9zcXJ0KDI1MClcbmhpZ2ggPC0gMzEgKyB6KnNkKGRhdGEkbWFzcykvc3FydCgyNTApXG5sb3c7aGlnaFxuYGBgIn0= -->
+<pre class="r"><code>z = 2.58
+low &lt;- 31 - z*sd(data$mass)/sqrt(250)
+high &lt;- 31 + z*sd(data$mass)/sqrt(250)
+low;high</code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiYXJndW1lbnQgaXMgbm90IG51bWVyaWMgb3IgbG9naWNhbDogcmV0dXJuaW5nIE5BXG4ifQ== -->
-<pre><code>argument is not numeric or logical: returning NA</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIE5BXG4ifQ== -->
-<pre><code>[1] NA</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI09SXG5zdW0oZGF0YVtbJ21hc3MnXV0pL2xlbmd0aChkYXRhW1snbWFzcyddXSlcbmBgYCJ9 -->
-<pre class="r"><code>#OR
-sum(data[['mass']])/length(data[['mass']])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIE5hTlxuIn0= -->
-<pre><code>[1] NaN</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0ZpbmQgdGhlIG1lZGlhbiBvZiB0aGUgbWFzcyB2YXJpYWJsZS5cbm1lZGlhbihkYXRhW1snbWFzcyddXSlcbmBgYCJ9 -->
-<pre class="r"><code>#Find the median of the mass variable.
-median(data[['mass']])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiaXMubmEoKSBhcHBsaWVkIHRvIG5vbi0obGlzdCBvciB2ZWN0b3IpIG9mIHR5cGUgJ05VTEwnXG4ifQ== -->
-<pre><code>is.na() applied to non-(list or vector) of type 'NULL'</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTlVMTFxuIn0= -->
-<pre><code>NULL</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI09SXG4oc29ydChkYXRhW1snbWFzcyddXSlbbGVuZ3RoKGRhdGFbWydtYXNzJ11dKS8yXSArIHNvcnQoZGF0YVtbJ21hc3MnXV0pW2xlbmd0aChkYXRhW1snbWFzcyddXSkvMisxXSApLzJcbmBgYCJ9 -->
-<pre class="r"><code>#OR
-(sort(data[['mass']])[length(data[['mass']])/2] + sort(data[['mass']])[length(data[['mass']])/2+1] )/2</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiaXMubmEoKSBhcHBsaWVkIHRvIG5vbi0obGlzdCBvciB2ZWN0b3IpIG9mIHR5cGUgJ05VTEwnaXMubmEoKSBhcHBsaWVkIHRvIG5vbi0obGlzdCBvciB2ZWN0b3IpIG9mIHR5cGUgJ05VTEwnXG4ifQ== -->
-<pre><code>is.na() applied to non-(list or vector) of type 'NULL'is.na() applied to non-(list or vector) of type 'NULL'</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-output-begin eyJkYXRhIjoibnVtZXJpYygwKVxuIn0= -->
-<pre><code>numeric(0)</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0ZpbmQgdGhlIG1vZGUgb2YgdGhlIG1hc3MuXG5nZXRtb2RlIDwtIGZ1bmN0aW9uKHYpe1xuICB1bmlxdiA8LSB1bmlxdWUodilcbiAgdW5pcXZbd2hpY2gubWF4KHRhYnVsYXRlKG1hdGNoKHYsIHVuaXF2KSkpXVxufVxuZ2V0bW9kZShkYXRhW1snbWFzcyddXSlcbmBgYCJ9 -->
-<pre class="r"><code>#Find the mode of the mass.
-getmode &lt;- function(v){
-  uniqv &lt;- unique(v)
-  uniqv[which.max(tabulate(match(v, uniqv)))]
-}
-getmode(data[['mass']])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiTlVMTFxuIn0= -->
-<pre><code>NULL</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0ZpbmQgdGhlIHN0YW5kYXJkIGRldmlhdGlvbiBvZiB0aGUgYWdlIHZhcmlhYmxlLlxuc2QoZGF0YVtbXCJhZ2VcIl1dKVxuYGBgIn0= -->
-<pre class="r"><code>#Find the standard deviation of the age variable.
-sd(data[[&quot;age&quot;]])</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiWzFdIE5BXG4ifQ== -->
-<pre><code>[1] NA</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI09SXG5udW0gPC0gMFxuZm9yIChpIGluIDE6bGVuZ3RoKGRhdGEkYWdlKSl7XG4gIG51bSA8LSBudW0gKyAoZGF0YSRhZ2VbaV0tbWVhbihkYXRhJGFnZSkpXjJcbn1cbmBgYCJ9 -->
-<pre class="r"><code>#OR
-num &lt;- 0
-for (i in 1:length(data$age)){
-  num &lt;- num + (data$age[i]-mean(data$age))^2
-}</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiYXJndW1lbnQgaXMgbm90IG51bWVyaWMgb3IgbG9naWNhbDogcmV0dXJuaW5nIE5BYXJndW1lbnQgaXMgbm90IG51bWVyaWMgb3IgbG9naWNhbDogcmV0dXJuaW5nIE5BXG4ifQ== -->
-<pre><code>argument is not numeric or logical: returning NAargument is not numeric or logical: returning NA</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc3FydChudW0vc3VtKGxlbmd0aChkYXRhJGFnZSkpKVxuYGBgIn0= -->
-<pre class="r"><code>sqrt(num/sum(length(data$age)))</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoibnVtZXJpYygwKVxuIn0= -->
-<pre><code>numeric(0)</code></pre>
-<!-- rnb-output-end -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuI0ZpbmQgdGhlIHZhcmlhbmNlIG9mIHRoZSBtYXNzIHZhcmlhYmxlLlxudmFyKGRhdGEkbWFzcylcbmBgYCJ9 -->
-<pre class="r"><code>#Find the variance of the mass variable.
-var(data$mass)</code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiRXJyb3IgaW4gdmFyKGRhdGEkbWFzcykgOiAneCcgaXMgTlVMTFxuIn0= -->
-<pre><code>Error in var(data$mass) : 'x' is NULL</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDI5Ljg3MDAzXG5bMV0gMzIuMTI5OTdcbiJ9 -->
+<pre><code>[1] 29.87003
+[1] 32.12997</code></pre>
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -280,7 +203,7 @@ var(data$mass)</code></pre>
 <p>When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the <em>Preview</em> button or press <em>Ctrl+Shift+K</em> to preview the HTML file).</p>
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQojPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQojaHR0cDovL3ItZXhlcmNpc2VzLmNvbS8yMDE3LzAyLzA1L2RhdGEtc2NpZW5jZS1mb3ItZG9jdG9ycy1wYXJ0LTItZGVzY3JpcHRpdmUtc3RhdGlzdGljcy8NCiNEYXRhIFNjaWVuY2UgZm9yIERvY3RvcnMg4oCTIFBhcnQgMiA6IERlc2NyaXB0aXZlIFN0YXRpc3RpY3MNCiM9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCg0KIyNSdW4gUGFydDEgYmVmb3JlIHJ1biB0aGlzIGNvZGUgY2h1bmsNCg0KbGlicmFyeShIbWlzYykNCg0KDQojRmluZCB0aGUgbWVhbiBvZiB0aGUgbWFzcyB2YXJpYWJsZS4NCm1lYW4oZGF0YVtbJ21hc3MnXV0pDQojT1INCnN1bShkYXRhW1snbWFzcyddXSkvbGVuZ3RoKGRhdGFbWydtYXNzJ11dKQ0KDQoNCg0KI0ZpbmQgdGhlIG1lZGlhbiBvZiB0aGUgbWFzcyB2YXJpYWJsZS4NCm1lZGlhbihkYXRhW1snbWFzcyddXSkNCiNPUg0KKHNvcnQoZGF0YVtbJ21hc3MnXV0pW2xlbmd0aChkYXRhW1snbWFzcyddXSkvMl0gKyBzb3J0KGRhdGFbWydtYXNzJ11dKVtsZW5ndGgoZGF0YVtbJ21hc3MnXV0pLzIrMV0gKS8yDQoNCg0KDQojRmluZCB0aGUgbW9kZSBvZiB0aGUgbWFzcy4NCmdldG1vZGUgPC0gZnVuY3Rpb24odil7DQogIHVuaXF2IDwtIHVuaXF1ZSh2KQ0KICB1bmlxdlt3aGljaC5tYXgodGFidWxhdGUobWF0Y2godiwgdW5pcXYpKSldDQp9DQpnZXRtb2RlKGRhdGFbWydtYXNzJ11dKQ0KDQoNCg0KI0ZpbmQgdGhlIHN0YW5kYXJkIGRldmlhdGlvbiBvZiB0aGUgYWdlIHZhcmlhYmxlLg0Kc2QoZGF0YVtbImFnZSJdXSkNCiNPUg0KbnVtIDwtIDANCmZvciAoaSBpbiAxOmxlbmd0aChkYXRhJGFnZSkpew0KICBudW0gPC0gbnVtICsgKGRhdGEkYWdlW2ldLW1lYW4oZGF0YSRhZ2UpKV4yDQp9DQpzcXJ0KG51bS9zdW0obGVuZ3RoKGRhdGEkYWdlKSkpDQoNCg0KDQojRmluZCB0aGUgdmFyaWFuY2Ugb2YgdGhlIG1hc3MgdmFyaWFibGUuDQp2YXIoZGF0YSRtYXNzKQ0KI09SDQpudW0gPC0gMA0KZm9yIChpIGluIDE6bGVuZ3RoKGRhdGEkbWFzcykpew0KICBudW0gPC0gbnVtICsgKGRhdGEkbWFzc1tpXSAtIG1lYW4oZGF0YSRtYXNzKSleMg0KfQ0KbnVtL2xlbmd0aChkYXRhJG1hc3MpDQoNCg0KDQojRmluZCB0aGUgaW50ZXJxdWFydGlsZSByYW5nZSBvZiB0aGUgYWdlIHZhcmlhYmxlLg0KSVFSKGRhdGFbWyJhZ2UiXV0pICMgaW50ZXJxdWFydGlsZSByYW5nZQ0KI09SDQooc29ydChkYXRhW1snYWdlJ11dKVtsZW5ndGgoZGF0YVtbJ2FnZSddXSkqLjc1XSAtIHNvcnQoZGF0YVtbJ2FnZSddXSlbbGVuZ3RoKGRhdGFbWydhZ2UnXV0pKi4yNV0gKQ0KDQoNCg0KI0ZpbmQgdGhlIG1lZGlhbiBhYnNvbHV0ZSBkZXZpYXRpb24gb2YgYWdlIHZhcmlhYmxlLiBBc3N1bWUgdGhhdCB0aGUgYWdlIGZvbGxvd3MgYSBub3JtYWwgZGlzdHJpYnV0aW9uLg0KbWFkKGRhdGFbWydhZ2UnXV0pDQoNCg0KDQojRmluZCB0aGUgY292YXJpYW5jZSBvZiB0aGUgdmFyaWFibGVzIGFnZSwgbWFzcy4NCmNvdihkYXRhJGFnZSwgZGF0YSRtYXNzKQ0KI09SDQpudW0gPC0gMA0KZm9yIChpIGluIDE6bGVuZ3RoKGRhdGEkYWdlKSl7DQogIG51bSA8LSBudW0gKyAoZGF0YSRhZ2VbaV0gLSBtZWFuKGRhdGEkYWdlKSkgKiAoZGF0YSRtYXNzW2ldIC0gbWVhbihkYXRhJG1hc3MpKQ0KfQ0KbnVtL2xlbmd0aChkYXRhJGFnZSkNCg0KDQoNCiNGaW5kIHRoZSBzcGVhcm1hbiBhbmQgcGVhcnNvbiBjb3JyZWxhdGlvbnMgb2YgdGhlIHZhcmlhYmxlcyBhZ2UsIG1hc3MuDQogICNOb3RlOiBQZWFyc29uIGlzIHVzZWQgd2hlbiB0aGUgcmVsYXRpb24gYmV0d2VlbiB0aGUgdmFyaWFibGVzIGlzIGxpbmVhciwgDQogICMgd2hpbGUgc3BlYXJtYW4gbWFrZSBubyBzdWNoIGFzc3VtcHRpb24NCmNvcihkYXRhJGFnZSwgZGF0YSRtYXNzLCBtZXRob2QgPSAic3BlYXJtYW4iKQ0KICAjVXNlZCB0byBtZWFzdXJlIHRoZSBkZWdyZWUgb2YgdGhlIHJlbGF0aW9uc2hpcCBiZXR3ZWVuIGxpbmVhcmx5IHJlbGF0ZWQgdmFyaWFibGVzDQpjb3IoZGF0YSRhZ2UsIGRhdGEkbWFzcywgbWV0aG9kID0gInBlYXJzb24iKQ0KDQoNCg0KI1ByaW50IHRoZSBzdW1tYXJ5IHN0YXRpc3RpY3MsIGFuZCB0aGUgc3RydWN0dXJlIG9mIHRoZSBkYXRhIHNldC4gTW9yZW92ZXIgY29uc3RydWN0IHRoZSBjb3JyZWxhdGlvbiBtYXRyaXggb2YgdGhlIGRhdGEgc2V0Lg0Kc3VtbWFyeShkYXRhKQ0Kc3RyKGRhdGEpDQpyY29ycihhcy5tYXRyaXgoZGF0YVstbGVuZ3RoKGRhdGEpXSksdHlwZSA9ICJzcGVhcm1hbiIpDQpyY29ycihhcy5tYXRyaXgoZGF0YVstbGVuZ3RoKGRhdGEpXSksdHlwZSA9ICJwZWFyc29uIikNCg0KDQpgYGANCg0KQWRkIGEgbmV3IGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqSW5zZXJ0IENodW5rKiBidXR0b24gb24gdGhlIHRvb2xiYXIgb3IgYnkgcHJlc3NpbmcgKkN0cmwrQWx0K0kqLg0KDQpXaGVuIHlvdSBzYXZlIHRoZSBub3RlYm9vaywgYW4gSFRNTCBmaWxlIGNvbnRhaW5pbmcgdGhlIGNvZGUgYW5kIG91dHB1dCB3aWxsIGJlIHNhdmVkIGFsb25nc2lkZSBpdCAoY2xpY2sgdGhlICpQcmV2aWV3KiBidXR0b24gb3IgcHJlc3MgKkN0cmwrU2hpZnQrSyogdG8gcHJldmlldyB0aGUgSFRNTCBmaWxlKS4NCg==</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIlIgTm90ZWJvb2siDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpUaGlzIGlzIGFuIFtSIE1hcmtkb3duXShodHRwOi8vcm1hcmtkb3duLnJzdHVkaW8uY29tKSBOb3RlYm9vay4gV2hlbiB5b3UgZXhlY3V0ZSBjb2RlIHdpdGhpbiB0aGUgbm90ZWJvb2ssIHRoZSByZXN1bHRzIGFwcGVhciBiZW5lYXRoIHRoZSBjb2RlLiANCg0KVHJ5IGV4ZWN1dGluZyB0aGlzIGNodW5rIGJ5IGNsaWNraW5nIHRoZSAqUnVuKiBidXR0b24gd2l0aGluIHRoZSBjaHVuayBvciBieSBwbGFjaW5nIHlvdXIgY3Vyc29yIGluc2lkZSBpdCBhbmQgcHJlc3NpbmcgKkN0cmwrU2hpZnQrRW50ZXIqLiANCg0KYGBge3J9DQojPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCiMgRGF0YSBTY2llbmNlIGZvciBEb2N0b3JzIOKAkyBQYXJ0IDQgOiBJbmZlcmVudGlhbCBTdGF0aXN0aWNzICgxLzUpDQojIGh0dHA6Ly93d3cuci1leGVyY2lzZXMuY29tLzIwMTcvMDIvMjAvZGF0YS1zY2llbmNlLWZvci1kb2N0b3JzLXBhcnQtNC1pbmZlcmVudGlhbC1zdGF0aXN0aWNzLTE1Lw0KIyM9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQ0KDQoNCg0KDQoNCmxpYnJhcnkobW9tZW50cykNCiNQbGVhc2UgcnVuIHRoZSBjb2RlIGJlbG93IGluIG9yZGVyIHRvIGxvYWQgdGhlIGRhdGEgc2V0IGFuZCB0cmFuc2Zvcm0gaXQgaW50byBhIHByb3BlciBkYXRhIGZyYW1lIGZvcm1hdDoNCnVybCA8LSAiaHR0cHM6Ly9hcmNoaXZlLmljcy51Y2kuZWR1L21sL21hY2hpbmUtbGVhcm5pbmctZGF0YWJhc2VzL3BpbWEtaW5kaWFucy1kaWFiZXRlcy9waW1hLWluZGlhbnMtZGlhYmV0ZXMuZGF0YSINCmRhdGEgPC0gcmVhZC50YWJsZSh1cmwsIGZpbGVFbmNvZGluZyA9ICJVVEYtOCIsIHNlcD0iLCIpDQpuYW1lcyA8LSBjKCdwcmVnJywgJ3BsYXMnLCAncHJlcycsICdza2luJywgJ3Rlc3QnLCAnbWFzcycsICdwZWRpJywgJ2FnZScsICdjbGFzcycpDQpjb2xuYW1lcyhkYXRhKSA8LSBuYW1lcw0KZGF0YSA8LSBkYXRhWy13aGljaChkYXRhJG1hc3MgPT0gMCksXQ0KDQoNCiNHZW5lcmF0ZSAoMTAwMDAgaXRlcmF0aW9ucykgYSBzYW1wbGluZyBkaXN0cmlidXRpb24gb2Ygc2FtcGxlIHNpemUgNTAsIGZvciB0aGUgdmFyaWFibGUgbWFzcy4NCml0ZXIgPC0gMTAwMDANCm1lYW5zIDwtIHJlcChOQSwgaXRlcikNCg0KZm9yIChpIGluIDE6aXRlcil7DQogIHNhbV81MCA8LSBzYW1wbGUoZGF0YSRtYXNzLCA1MCkNCiAgbWVhbnNbaV0gPC0gbWVhbihzYW1fNTApDQp9DQoNCmhpc3QobWVhbnMpDQoNCmhpc3QoZGF0YSRtYXNzKQ0KDQojRmluZCB0aGUgbWVhbiBhbmQgc3RhbmRhcmQgZXJyb3IgKHN0YW5kYXJkIGRldmlhdGlvbikgb2YgdGhlIHNhbXBsaW5nIGRpc3RyaWJ1dGlvbi4NCm1lYW4oZGF0YSRtYXNzKQ0Kc2QoZGF0YSRtYXNzKS9zcXJ0KDUwKQ0KI09SDQptZWFuKG1lYW5zKQ0Kc2QobWVhbnMpDQoNCiNGaW5kIHRoZSBvZiB0aGUgc2tld25lc3MgYW5kIGt1cnRvc2lzIG9mIHRoZSBkaXN0cmlidXRpb24geW91IGdlbmVyYXRlZCBiZWZvcmUuDQpsaWJyYXJ5KG1vbWVudHMpDQpza2V3bmVzcyhtZWFucykNCmt1cnRvc2lzKG1lYW5zKQ0KDQojU3VwcG9zZSB0aGF0IHdlIG1hZGUgYW4gZXhwZXJpbWVudCBhbmQgd2UgdG9vayBhIHNhbXBsZSBvZiBzaXplIDUwIGZyb20gdGhlIHBvcHVsYXRpb24gYW5kIHRoZXkgZm9sbG93ZWQgYW4gb3JnYW5pYyBmb29kIGRpZXQuIFRoZWlyIGF2ZXJhZ2UgbWFzcyB3YXMgMzAuNS4gV2hhdCBpcyB0aGUgWiBzY29yZSBmb3IgYSBtZWFuIG9mIDMwLjU/DQp6ID0gKDMwLjUtbWVhbihkYXRhJG1hc3MpKS8oc2QoZGF0YSRtYXNzKS9zcXJ0KDUwKSkNCnoNCg0KI1doYXQgaXMgdGhlIHByb2JhYmlsaXR5IG9mIGRyYXdpbmcgYSBzYW1wbGUgb2YgNTAgd2l0aCBtZWFuIGxlc3MgdGhhbiAzMC41PyBVc2UgdGhlIHRoZSB6LXRhYmxlIGlmIHlvdSBmZWVsIHlvdSBuZWVkIHRvLg0KcG5vcm0oeikNCg0KI1N1cHBvc2UgdGhhdCB5b3UgZGlkIHRoZSBleHBlcmltZW50IGFnYWluIGJ1dCB0byBhIGxhcmdlciBzYW1wbGUgc2l6ZSBvZiAxNTAgYW5kIHlvdSBmb3VuZCB0aGUgYXZlcmFnZSBtYXNzIHRvIGJlIDMxLiBDb21wdXRlIHRoZSB6IHNjb3JlIGZvciB0aGlzIG1lYW4uDQp6ID0gKDMxLW1lYW4oZGF0YSRtYXNzKSkvKHNkKGRhdGEkbWFzcykvc3FydCgxNTApKQ0Keg0KDQojV2hhdCBpcyB0aGUgcHJvYmFiaWxpdHkgb2YgZHJhd2luZyBhIHNhbXBsZSBvZiAxNTAgd2l0aCBtZWFuIGxlc3MgdGhhbiAzMT8NCnBub3JtKHopDQoNCiNJZiBldmVyeWJvZHkgd291bGQgYWRvcHQgdGhlIGRpZXQgb2YgdGhlIGV4cGVyaW1lbnQuIEZpbmQgdGhlIG1hcmdpbiBvZiBlcnJvciBmb3IgdGhlIDk1JSBvZiBzYW1wbGUgbWVhbnMuDQp6KnNkKGRhdGEkbWFzcykvc3FydCgxNTApDQoNCiNXaGF0IHdvdWxkIGJlIG91ciBpbnRlcnZhbCBlc3RpbWF0ZSB0aGF0IDk1JSBsaWtlbHkgY29udGFpbnMgd2hhdCB0aGlzIHBvcHVsYXRpb24gbWVhbiB3b3VsZCBiZSBpZiBldmVyeW9uZSBpbiBvdXIgcG9wdWxhdGlvbiB3b3VsZCBzdGFydCBhZG9wdGluZyB0aGUgb3JnYW5pYyBkaWV0Lg0KeiA9IDEuOTYNCmxvdyA8LSAzMSAtIHoqc2QoZGF0YSRtYXNzKS9zcXJ0KDI1MCkNCmhpZ2ggPC0gMzEgKyB6KnNkKGRhdGEkbWFzcykvc3FydCgyNTApDQpsb3c7aGlnaA0KDQojRmluZCB0aGUgaW50ZXJ2YWwgZXN0aW1hdGUgZm9yIDk4JSBhbmQgOTklIGxpa2VsaWhvb2QuDQp6ID0gMi4zMw0KbG93IDwtIDMxIC0geipzZChkYXRhJG1hc3MpL3NxcnQoMjUwKQ0KaGlnaCA8LSAzMSArIHoqc2QoZGF0YSRtYXNzKS9zcXJ0KDI1MCkNCmxvdztoaWdoDQoNCnogPSAyLjU4DQpsb3cgPC0gMzEgLSB6KnNkKGRhdGEkbWFzcykvc3FydCgyNTApDQpoaWdoIDwtIDMxICsgeipzZChkYXRhJG1hc3MpL3NxcnQoMjUwKQ0KbG93O2hpZ2gNCg0KDQoNCg0KDQoNCmBgYA0KDQpBZGQgYSBuZXcgY2h1bmsgYnkgY2xpY2tpbmcgdGhlICpJbnNlcnQgQ2h1bmsqIGJ1dHRvbiBvbiB0aGUgdG9vbGJhciBvciBieSBwcmVzc2luZyAqQ3RybCtBbHQrSSouDQoNCldoZW4geW91IHNhdmUgdGhlIG5vdGVib29rLCBhbiBIVE1MIGZpbGUgY29udGFpbmluZyB0aGUgY29kZSBhbmQgb3V0cHV0IHdpbGwgYmUgc2F2ZWQgYWxvbmdzaWRlIGl0IChjbGljayB0aGUgKlByZXZpZXcqIGJ1dHRvbiBvciBwcmVzcyAqQ3RybCtTaGlmdCtLKiB0byBwcmV2aWV3IHRoZSBIVE1MIGZpbGUpLg0K</div>
 
 
 

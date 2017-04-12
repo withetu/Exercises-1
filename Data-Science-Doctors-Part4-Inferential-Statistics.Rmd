@@ -1,0 +1,97 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#==================================================================================================
+# Data Science for Doctors – Part 4 : Inferential Statistics (1/5)
+# http://www.r-exercises.com/2017/02/20/data-science-for-doctors-part-4-inferential-statistics-15/
+##==================================================================================================
+
+
+
+
+
+library(moments)
+#Please run the code below in order to load the data set and transform it into a proper data frame format:
+url <- "https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data"
+data <- read.table(url, fileEncoding = "UTF-8", sep=",")
+names <- c('preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class')
+colnames(data) <- names
+data <- data[-which(data$mass == 0),]
+
+
+#Generate (10000 iterations) a sampling distribution of sample size 50, for the variable mass.
+iter <- 10000
+means <- rep(NA, iter)
+
+for (i in 1:iter){
+  sam_50 <- sample(data$mass, 50)
+  means[i] <- mean(sam_50)
+}
+
+hist(means)
+
+hist(data$mass)
+
+#Find the mean and standard error (standard deviation) of the sampling distribution.
+mean(data$mass)
+sd(data$mass)/sqrt(50)
+#OR
+mean(means)
+sd(means)
+
+#Find the of the skewness and kurtosis of the distribution you generated before.
+library(moments)
+skewness(means)
+kurtosis(means)
+
+#Suppose that we made an experiment and we took a sample of size 50 from the population and they followed an organic food diet. Their average mass was 30.5. What is the Z score for a mean of 30.5?
+z = (30.5-mean(data$mass))/(sd(data$mass)/sqrt(50))
+z
+
+#What is the probability of drawing a sample of 50 with mean less than 30.5? Use the the z-table if you feel you need to.
+pnorm(z)
+
+#Suppose that you did the experiment again but to a larger sample size of 150 and you found the average mass to be 31. Compute the z score for this mean.
+z = (31-mean(data$mass))/(sd(data$mass)/sqrt(150))
+z
+
+#What is the probability of drawing a sample of 150 with mean less than 31?
+pnorm(z)
+
+#If everybody would adopt the diet of the experiment. Find the margin of error for the 95% of sample means.
+z*sd(data$mass)/sqrt(150)
+
+#What would be our interval estimate that 95% likely contains what this population mean would be if everyone in our population would start adopting the organic diet.
+z = 1.96
+low <- 31 - z*sd(data$mass)/sqrt(250)
+high <- 31 + z*sd(data$mass)/sqrt(250)
+low;high
+
+#Find the interval estimate for 98% and 99% likelihood.
+z = 2.33
+low <- 31 - z*sd(data$mass)/sqrt(250)
+high <- 31 + z*sd(data$mass)/sqrt(250)
+low;high
+
+z = 2.58
+low <- 31 - z*sd(data$mass)/sqrt(250)
+high <- 31 + z*sd(data$mass)/sqrt(250)
+low;high
+
+
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
