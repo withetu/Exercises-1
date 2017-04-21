@@ -1,0 +1,85 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+# ==============================================================================
+# Multiple Regression (Part 3) Diagnostics
+# http://www.r-exercises.com/2017/03/11/multiple-regression-part-3-diagnostics/
+# ==============================================================================
+
+
+data(state)
+state77 <- as.data.frame(state.x77)
+names(state77)[4] <- "Life.Exp"
+names(state77)[6] <- "HS.Grad"
+
+
+#For the model with Life.Exp as dependent variable, and HS.Grad and Murder as predictors, suppose we would like to study the marginal effect of each predictor variable, given that the other predictor is in the model.
+
+#a. Use a function from the car package to obtain added-variable (partial regression) plots for this purpose.
+library(car)
+m1 <- lm(Life.Exp ~ HS.Grad+Murder, data=state77)
+avPlots(m1) #Note that the slope of the line is positive in the HS.Grad plot, and negative in the Murder plot, as expected.
+
+#b. Re-create the added-variable plots from part a., labeling the two most influential points in the plots (according to Mahalanobis distance).
+avPlots(m1, id.method=list("mahal"), id.n=2)
+
+# a. Illiteracy is highly correlated with both HS.Grad and Murder. To illustrate problems that occur when multicollinearity exists, suppose we would like to study the marginal effect of Illiteracy (only), given that HS.Grad and Murder are in the model. Use a function from the car package to get the relevant added-variable plot.
+with(state77, avPlot(lm(Life.Exp ~ HS.Grad+Murder+Illiteracy), variable=Illiteracy)) #Note that the slope is positive, contrary to what is expected
+
+# b. From the correlation matrix in the previous Exercise Set, we know that Population and Area are the least strongly correlated variables with Life.Exp. Create added-variable plots for each of these two variables, given that all other six variables are in the model.
+avPlots(lm(Life.Exp ~ .,data=state77), terms= ~ Population+Area)
+
+
+#Consider the model with HS.Grad, Murder, Income, and Area as predictors. Create component+residual (partial-residual) plots for this model.
+crPlots(lm(Life.Exp ~ HS.Grad+Murder+Income+Area, data = state77)) #We see that there seems to be a problem with linearity for Income and Area (which could be due to the outlier in the lower right corner in both plots).
+
+#Create CERES plots for the model in Exercise 3.
+ceresPlots(lm(Life.Exp ~ HS.Grad+Murder+Income+Area, data = state77)) #Here, there is not much difference with the plots in Exercise 3 (although, in general, CERES plots are "less prone to leakage of nonlinearity among the predictors.")
+
+#As an illustration of high collinearities, compute VIF (Variance Inflation Factor) values for a model with Life.Exp as the response, that includes all the variables as predictors. Which variables seem to be causing the most problems?
+vif(lm(Life.Exp ~., data = state77))  #Some authors advocate that a vif>2.5 is a cause for concern, while others mention vif>4 or vif>10. According to these criteria, Illiteracy, Murder, and HS.Grad are the most problematic (in the presence of all the other predictors).
+
+#Using a function from the package lmtest, conduct a Breusch-Pagan test for heteroscedasticity (non-constant variance) for the model in Exercise 1.
+library(lmtest)
+bptest(m1)
+#There is no evidence of heteroscedasticity (of the type that depends on a linear combination of the predictors).
+
+#Re-do the test in the previous exercise by using a function from the car package.
+ncvTest(m1)
+#Note that the results are different to Exercise 6 because bptest (by default) uses studentized residuals (which is preferred for robustness) and assumes the error variance depends on a linear combination of the predictors, whereas ncvTest (by default) uses regular residuals and assumes the error variance depends on the fitted values. 
+#ncvTest(m1) is equivalent to bptest(m1,varformula= ~ m1$fitted,studentize=F,data=state77)
+
+#The test in Exercise 6 (and 7) is for linear forms of heteroscedasticity. To test for nonlinear heteroscedasticity (e.g., “bowtie-shape” in a residual plot), conduct White’s test.
+bptest(m1, varformula = ~ I(HS.Grad^2)+I(Murder^2)+HS.Grad*Murder, data = state77)
+
+#a. Conduct the Kolmogorov-Smirnov normality test for the residuals from the model in Exercise 1.
+ks.test(m1$residuals, "pnorm") #There is no evidence that the residuals are not Normal. 
+
+#b. Now conduct the Shapiro-Wilk normality test.
+#Note: More Normality tests can be found in the nortest package.
+shapiro.test(m1$residuals) #Again, there is no evidence of nonnormality.
+
+
+#For illustration purposes only, conduct the Durbin-Watson test for autocorrelation in residuals. (NOTE: This test is ONLY appropriate when the response variable is a time series, or somehow time-related (e.g., ordered by data collection time.))
+durbinWatsonTest(m1)  #There is no evidence of lag-1 autocorrelation in the residuals.
+
+
+
+
+
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
