@@ -1,0 +1,93 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+# ===============================================================================
+# Unit testing in R using testthat library Exercises
+# http://www.r-exercises.com/2017/03/12/unit-testing-in-r-using-testthat-library/
+# ===============================================================================
+
+
+
+
+
+#Install and load the package testthat using the appropriate function.
+library(testthat)
+
+#expect_that() is the function that makes the binary assertion of whether or not the value is as expected.
+#expect_that(x,equals(y)) reads as “it is expected that ‘a’ will be equal to ‘b'”.
+#Use this function to see if 5*2 equals 10
+expect_that(5*2, equals(10))
+
+#The function equals() checks for equality with a numerical tolerance. Let’s see what that tolerance level is
+expect_that(5*2, equals(10+ 1e-7))
+expect_that(5*2, equals(10+ 1e-6))
+
+#To exactly match the values is_identical_to() can be used instead of equals()
+#Using the appropriate function, check if 2*2 is identical to 4 + (1e-8)
+expect_that(2*2, is_identical_to(4+ 1e-8))
+
+#Let us create a function (m) to multiply two numbers ( two arguments ) and check if it throws an error with character input arguments.
+#Check if m(“2″,”3”) throws an error “non-numeric argument to binary operator”
+m <- function(x,y)
+{
+  return(x*y)
+}
+
+expect_that(m("2", "3"), throws_error("non-numeric argument to binary operator"))
+
+
+
+#Now that we know how to check for expectations, let us create tests.
+#Test is a collection of expectations, where these expectations test a single item of the functionality of a process.
+#test_that() is the function that encapsulates the description and the code to test each expectation.
+#The first argument is the description and the second argument is a collection of expectations.
+#Create a test for function ‘m’ with description “Testing multiplication function” and add a few scenarios to it.
+#1. Check if m(2,3) equals 6
+#2. Check if m(2,c(2,3)) equals c(4,6)
+#3. Check if m(2,”3″) throws an error “non-numeric argument to binary operator”
+test_that("Testing multiplication function",
+          {
+            expect_that(m(2,3), equals(6))
+            expect_that(m(2,c(2,3)), equals(c(4,6)))
+            expect_that(m(2,"3"), throws_error("non-numeric argument to binary operator"))
+          })
+
+
+
+#The User can write his own expectation using the expect() function. This expectation should compare the input value and the expectation and report the result.
+is_greater_10 <- function(){
+  function(x){
+    expect(x>10, "Not greater than 10")
+  }
+}
+
+
+#Use the expectation defined above to check if 9 is greater than 10.
+expect_that(9, is_greater_10())
+
+
+
+#tests can be put together in a file and run at once. Write tests of your choice and save them in a file.
+#Use the function test_file() to run all the tests in the file.
+test_file(<Path to the file with test script>)
+
+
+#Test files in a directory can be run at once using the function test_dir().
+#Create multiple test files and save them in a directory. Run all the tests at once using the function.
+test_dir(<Path to the directory with test files>)
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
