@@ -1,0 +1,91 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+# ================================================================
+
+# One way MANOVA exercises
+# http://www.r-exercises.com/2017/03/17/one-way-manova-exercises/
+
+# ================================================================
+
+
+
+
+# Import data into R
+
+# Read in SPSS data
+library(foreign)
+koro.data = read.spss("C:\\Users\\user\\Documents\\GitHub\\Exercises-1\\koro.sav",to.data.frame = TRUE)
+View(koro.data)
+attach(koro.data)
+
+# Check the number of observations in each group
+table(therapy)
+
+# Create the variables that hold the change in indices
+koro.data$si.diff = si_post - si_pre
+koro.data$sf.diff = sf_post - sf_pre
+koro.data$oa.diff = oa_post - oa_pre
+
+# Summarize the change variables
+library(pastecs)
+indices = koro.data[,c(3,10,11,12)]
+stat.desc(indices)
+
+# Get descriptive statistics for each therapy
+library(psych)
+describeBy(indices[-1], therapy)
+
+# Obtain the correlation matrix
+library(Hmisc)
+rcorr(as.matrix(indices[-1]),type = "pearson")
+#Our variables are moderately correlated. When variables are highly correlated some need to be dropped
+
+# Check for univariate and multivariate outliers
+library(ggplot2)
+#Check univariate outliers
+ggplot(indices, aes(x=therapy, y=si.diff)) + geom_boxplot()
+ggplot(indices, aes(x=therapy, y=oa.diff)) + geom_boxplot()
+ggplot(indices, aes(x=therapy, y=sf.diff)) + geom_boxplot()
+#Box plots show some observations are outliers
+#Check multivariate outliers
+library(mvoutlier)
+aq.plot(indices[-1])
+## Projection to the first and second robust principal components.
+## Proportion of total variation (explained variance): 0.7961158
+
+# Check for  homogeneity of variance
+bartlett.test(sf.diff~therapy, data = indices)
+bartlett.test(si.diff~therapy, data = indices)
+bartlett.test(oa.diff~therapy, data = indices)
+#There was no evidence of departure from homogeneity of variance
+
+# Run MANOVA with outliers
+manova.analysis = manova(as.matrix(indices[-1])~therapy)
+summary(manova.analysis)
+summary(manova.analysis, test = "Wilks")
+#Both Pillai and Wilk's lambda showed significance
+
+# Interpret results
+
+#We did not find violation of any of assumptions required for MANOVA analysis
+#However we identified some observations that were outliers
+#In part 2 of MANOVA exercises we will drop the outliers and repeat the analysis
+#In part 2 we will explain what to do when we have a significant result
+
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
