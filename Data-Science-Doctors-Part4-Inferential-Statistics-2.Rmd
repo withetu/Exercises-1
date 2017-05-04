@@ -1,0 +1,76 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+# =======================================================================================================
+
+# Data science for Doctors: Inferential Statistics Exercises (part-2)
+# http://www.r-exercises.com/2017/03/19/data-science-for-doctors-inferential-statistics-exercises-part-2/
+
+# =======================================================================================================
+
+
+
+library(TeachingDemos)
+url <- "https://archive.ics.uci.edu/ml/machine-learning-databases/pima-indians-diabetes/pima-indians-diabetes.data"
+data <- read.table(url, fileEncoding="UTF-8", sep=",")
+names <- c('preg', 'plas', 'pres', 'skin', 'test', 'mass', 'pedi', 'age', 'class')
+colnames(data) <- names
+data <- data[-which(data$mass ==0),]
+
+
+
+# Suppose that we take a sample of 30 candidates that tried a medicine and 5 of them are positive.The null hypothesis is H_{0}: p = average of classes, is to be tested against H1: p != average of classes. This practically means whether the drug had an effect on the patients
+binom.test(5, 30, mean(data$class), alternative = "two.sided")
+
+# Apply the same test as above but instead of writing the number of samples try to apply the test in respect to the number of successes and failures (5,25).
+binom.test(c(5, 25), mean(data$class) ,alternative = "two.sided")
+
+# Having the same null hypothesis as the exercises 1,2 apply a one-sided test where H1: p < average of classes.
+binom.test(5, 30, mean(data$class), alternative = "less")
+#OR 
+pbinom(5, 30, mean(data$class))
+# We reject our null hypothesis
+
+#At the previous exercises we didn’t specified the confidence interval, so it applied it with the default 0.95. Run the test from exercise 3 but instead of having confidence interval of 0.95 run it with confidence interval 0.99.
+binom.test(5, 30, mean(data$class), conf.level = 0.99, alternative = "less")
+
+# We have created another drug and we tested it on other 30 candidates. After having taken the medicine for a few weeks only 2 out of 30 were positive. We got really excited and decided to set the confidence interval to 0.999. Does that drug have an actual impact?
+binom.test(2, 30, mean(data$class), conf.level = 0.999, alternative = "less")
+# We reject our null hypothesis
+
+# Suppose that we establish a new diet and the average of the sample,of size 30, of candidates who tried this diet had average mass 29 after the testing period. Find the confidence interval for significance level of 0.05. Keep in mind that we run the test and compare it in respect to the data$mass variable
+z <- 1.96
+low <- mean(data$mass) - z*sd(data$mass)/sqrt(30)
+high <- mean(data$mass) + z*sd(data$mass)/sqrt(30)
+low;high
+
+# Find the Z-score of the sample.
+z <- (29 - mean(data$mass))/(sd(data$mass)/sqrt(30))
+z
+
+# Find the p-value for the experiment.
+2*pnorm(-abs(z),0,1) #Reject the null hypothesis
+
+
+# Run the z-test using the z.test function with confidence level of 0.95 and let the alternative hypothesis be that the diet had an effect. (two-sided test)
+library(TeachingDemos)
+z.test(29,mu=mean(data$mass),sd=sd(data$mass)/sqrt(30), alternative = "two.sided", conf.level = 0.95)
+
+# Let’s get a bit more intuitive now, let the alternative hypothesis be that the diet would lead to lower average body mass with confidence level of 0.99. (one-sided test)
+z.test(29,mu=mean(data$mass),sd=sd(data$mass)/sqrt(30), alternative = "less", conf.level = 0.99)
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
