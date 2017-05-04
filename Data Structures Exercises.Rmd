@@ -1,0 +1,96 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+# ================================================================
+
+# Data Structures Exercises
+# http://www.r-exercises.com/2017/03/15/data-structures-exercises/
+
+# ================================================================
+
+
+
+# Create a vector named v which contains 10 random integer values between -100 and +100.
+v <- sample(-100:100, 10, replace = TRUE)
+
+
+# Create a two-dimensional 5×5 array named a comprised of sequence of even integers greater than 25.
+a <- array(seq(from = 26, length.out = 25, by = 2), c(5,5)) 
+# Create a list named s containing sequence of 20 capital letters, starting with ‘C’.
+s <- LETTERS[match("C", LETTERS):(match("C", LETTERS)+19)]
+
+
+# Create a list named l and put all previously created objects in it. Name them a, b and c respectively. How many elements are there in the list? Show the structure of the list. Count all elements recursively.
+l <- list(a = v, b = a, c = s)
+length(l)
+
+str(l)
+
+length(unlist(l))
+
+
+# Without running commands in R, answer the following questions:
+#what is the result of l[[3]]?
+#How would you access random-th letter in the list element c?
+#If you convert list l to a vector, what will be the type of it’s elements?
+#Can this list be converted to an array? What will be the data type of elements in array?
+l[[3]]
+l[[3]][sample(1:length(l[[3]]),1)]
+class(unlist(l))
+x <- array(l)
+class(x[1])
+
+
+# Remove letters from the list l. Convert the list l to a vector and check its class. Compare it with the result from exercise 4, question #3.
+l$c <- NULL
+class(unlist(l))
+
+
+# Find the difference between elements in l[["a"]] and l[["b"]]. Find the intersection between them. Is there number 33 in their union?
+setdiff(l$a, l$b)
+
+intersect(l$a, l$b)
+
+33 %in% union(l$a, l$b)
+
+
+# Create 5×5 matrix named m and fill it with random numeric values rounded to two decimal places, ranging from 1.00 to 100.00.
+m <- matrix(data = round(runif(5*5, 0.99, 100.00), 2), nrow = 5)
+
+
+# What will be the class of data structure if you convert matrix m to:
+#vector
+#list
+#data frame
+#array?
+class(as.vector(m))
+class(as.list(m))
+class(as.data.frame(m))
+class(as.array(m))
+
+
+# Transpose array l$b and then convert it to matrix.
+as.matrix(aperm(l$b))
+
+
+# Get union of matrix m and all elements in list l and sort it ascending.
+sort(union(as.vector(m), unlist(l)))
+
+
+
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
