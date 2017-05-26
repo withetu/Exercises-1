@@ -45,6 +45,39 @@ plot(series_decomposed)
 seasonal_coef <- data.frame(series_decomposed$figure)
 seasonal_coef <- cbind(seasonal_coef, seq(1:12))
 seasonal_coef[order(-seasonal_coef [,1]),]
+# months with the greatest seasonal coefficients are December (1.693),
+# November (1.097), and August (1.032)
+# months with the smallest  seasonal coefficients are January (0.733),
+# February (0.823), and September (0.913)
+
+
+# Check whether the time series is trend-stationary (i.e. its mean and variance are constant with respect to a trend) using the function kpss.test from the tseries package. (Note that the null hypothesis of the test is that the series is trend-stationary).
+require(tseries)
+kpss.test(series)
+# p-value < 0.01, so the null hypothesis can be rejected at conventional 
+# confidence levels, which implies that the series is not trend-stationary.
+
+
+# Use the diff function to create a differenced time series (i.e. a series that includes differences between the values of the original series), and test it for trend stationarity.
+require(tseries)
+series_differenced <- diff(series)
+kpss.test(series_differenced)
+# p-value > 0.10, so the null hypothesis cannot be rejected at conventional 
+# confidence levels, therefore the series can be deemed trend-stationary.
+
+
+# Plot the differenced time series.
+plot(series_differenced)
+
+
+# Use the Acf and Pacf functions from the forecast package to explore autocorrelation of the differenced series. Find at which lags correlation between lagged values is statistically significant at 5% level.
+require(forecast)
+Acf(series_differenced)
+Pacf(series_differenced)
+# the coefficients located beyond the area enclosed by the two blue dotted lines
+# are statistically significant at 5% level (the default significance level
+# for the Acf and Pacf functions)
+
 
 
 
